@@ -1,4 +1,11 @@
-#!/usr/bin/env
+#!/usr/bin/env python3
+
+'''
+Derek Lin
+Computer Graphics
+Because it's time, you'll make a line.
+2017-02-16
+'''
 
 import random
 
@@ -16,7 +23,7 @@ for i in range(width):
         matrix[i].append([0, 0, 0])
 
 def writePpmFile(matrix):
-    file = open("line.ppm", "w")
+    file = open("lineTest.ppm", "w")
     file.write("P3\n")
     file.write("{} {} {}\n".format(width, height, colorDepth))
     for i in range(height):
@@ -37,84 +44,90 @@ def drawLine(matrix, a, b, color):
         a[1] = b[1] - a[1]
         b[0] = b[0] - a[0]
         b[1] = b[1] - a[1]
-    B = -1 * (b[0] - a[0])
+        
+    #Plot point b
+    plot(matrix, b[0], b[1], color)
 
-    if(a[1] >= b[1]):
+    x = a[0]
+    y = a[1]
+            
+    B = -1 * (b[0] - a[0])
+    
+    if a[1] >= b[1]:
         #Octant I, II
         A = a[1] - b[1]
-        if(A >= (-1 * B)):
-
+        if A >= (-1 * B):
+            #Octant II
+            d = A + (2 * B)
+            while(y > b[1]):
+                plot(matrix, x, y, color)
+                if(d < 0):
+                    x = x + 1
+                    d = d + A
+                y = y - 1
+                d = d + B
         else:
-
+            #Octant I
+            d = (2 * A) + B
+            while(x < b[0]):
+                plot(matrix, x, y, color)
+                if(d > 0):
+                    y = y - 1
+                    d = d + B
+                x = x + 1
+                d = d + A
     else:
         #Octant VII, VIII
-    #Octant I
-    A = a[1] - b[1]
-
-    d = (2 * A) + B
-    x = a[0]
-    y = a[1]
-    while(x < b[0]):
-        plot(matrix, x, y, color)
-        if(d > 0):
-            y = y - 1
-            d = d + B
-        x = x + 1
-        d = d + A
+        A = a[1] - b[1]
+        if A >= B:
+            #Octant VIII
+            d = (2 * A) - B
+            while(x < b[0]):
+                plot(matrix, x, y, color)
+                if(d < 0):
+                    y = y + 1
+                    d = d - B
+                x = x + 1
+                d = d + A
+        else:
+            #Octant VII
+            d = A - (2 * B)
+            while(y < b[1]):
+                plot(matrix, x, y, color)
+                if(d > 0):
+                    x = x + 1
+                    d = d + A
+                y = y + 1
+                d = d - B
     plot(matrix, b[0], b[1], color)
 
-    #Octant II
-    A = a[1]- b[1]
-
-    d = A + (2 * B)
-    x = a[0]
-    y = a[1]
-    while(y > b[1]):
-        plot(matrix, x, y, color)
-        if(d < 0):
-            x = x + 1
-            d = d + A
-        y = y - 1
-        d = d + B
-    plot(matrix, b[0], b[1], color)
-
-    #Octant VII
-    A = b[1] - a[1]
-
-    d = A - (2 * B)
-    x = a[0]
-    y = a[1]
-    while(y < b[1]):
-        plot(matrix, x, y color)
-        if(d > 0):
-            x = x + 1
-            d = d + A
-        y = y - 1
-        d = d - B
-    plot(matrix, b[0], b[1], color)
-
-    #Octant VIII
-    A =  b[1] - a[1]
-
-    d = (2 * A) - B
-    x = a[0]
-    y = a[1]
-    while(x < b[0]):
-        plot(matrix, x, y, color)
-        if(d < 0):
-            y = y - a
-            d = d - B
-        x = x + 1
-        d = d + A
-
+def randColor():
+    randColor = [random.randrange(0,256), random.randrange(0,256), random.randrange(0,256)]
+    return randColor
 def drawRandLine():
     randColor = [random.randrange(0,256), random.randrange(0,256), random.randrange(0,256)]
-    drawLine(matrix, [0, len(matrix[0]) - 1], [len(matrix) - 1, random.randrange(0, len(matrix[0]) - 1)], randColor)
+    x = [random.randrange(0, len(matrix)), random.randrange(0, len(matrix[0]))]
+    y = [random.randrange(0, len(matrix)), random.randrange(0, len(matrix[0]))]
+    drawLine(matrix, x, y, randColor)
 
-#drawLine(matrix, [0,499], [400,200], color)
-drawLine(matrix, [0, len(matrix[0]) - 1], [len(matrix) - 1, random.randrange(0, len(matrix[0]) - 1)], color)
-for i in range(999):
-    drawRandLine()
+#for i in range(20):
+#    drawRandLine()
+
 #for i in range(width):
 #   print(matrix[i])
+
+drawLine(matrix, [0,0], [499,499], randColor())
+drawLine(matrix, [0,499], [499,0], randColor())
+drawLine(matrix, [249,0], [249,499], randColor())
+drawLine(matrix, [0,249], [499,249], randColor())
+
+drawLine(matrix, [249,249], [499,124], randColor())
+drawLine(matrix, [249,249], [374, 0], randColor())
+drawLine(matrix, [249,249], [124,0], randColor())
+drawLine(matrix, [249,249], [0,124], randColor())
+drawLine(matrix, [249,249], [0,374], randColor())
+drawLine(matrix, [249,249], [124,499], randColor())
+drawLine(matrix, [249,249], [374,499], randColor())
+drawLine(matrix, [249,249], [499,374], randColor())
+
 writePpmFile(matrix)
