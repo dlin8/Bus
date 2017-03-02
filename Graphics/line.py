@@ -1,40 +1,5 @@
 #!/usr/bin/env python3
 
-'''
-Derek Lin
-Computer Graphics
-Because it's time, you'll make a line.
-2017-02-16
-'''
-
-import random
-
-width = 500
-height = 500
-#width = int(input("width of image: "))
-#height = int(input("height of image: "))
-colorDepth = 255
-matrix = []
-color = [0, 255, 0]
-
-for i in range(width):
-    matrix.append([])
-    for j in range(height):
-        matrix[i].append([0, 0, 0])
-
-def writePpmFile(matrix):
-    file = open("lineTest.ppm", "w")
-    file.write("P3\n")
-    file.write("{} {} {}\n".format(width, height, colorDepth))
-    for i in range(height):
-        for j in range(width):
-            file.write("{} {} {}\n".format(matrix[j][i][0], matrix[j][i][1], matrix[j][i][2]))
-
-def plot(matrix, x, y, color):
-    matrix[x][y][0] = color[0]
-    matrix[x][y][2] = color[2]
-    matrix[x][y][1] = color[1]
-
 def drawLine(matrix, a, b, color):
     #Swap points a and b if a is to the right of b.
     if(b[0] < a[0]):
