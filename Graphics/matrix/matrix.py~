@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+def scalarMultiplication(scalar, edgeMatrix):
+    for column in range(0, edgeMatrix.length):
+        for row in range(0, edgeMatrix[].length):
+            edgeMatrix[row][column] = edgeMatrix[row][column] * scalar
+
+#Test Cases
+edgeMatrix = []
+for column in range(0,8):
+    for row in range(0,4):
+        edgeMatrix[row][column] = [0]
