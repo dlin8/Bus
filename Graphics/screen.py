@@ -11,9 +11,9 @@ def createScreen(width, height):
 def plot(screen, x, y, color):
     width = len(screen)
     height = len(screen[0])
-    if(x > width or y > height):
+    if(x >= width or y >= height):
         print('Out of bounds!')
-        return false
+        return False
     screen[x][y][0] = color[0]
     screen[x][y][2] = color[2]
     screen[x][y][1] = color[1]
