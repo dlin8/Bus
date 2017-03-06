@@ -3,18 +3,18 @@
 import screen
 import line
 
-#Make it floaty
-
+# Prints a matrix somewhat nicely
 def printMatrix(matrix):
     printString = ''
     rows = len(matrix)
     columns = len(matrix[0])
-    for row in range (0, rows):
-        for column in range (0, columns):
-            printString = printString + str(matrix[row][column]) + ' '
+    for i in range (0, rows):
+        for j in range (0, columns):
+            printString = printString + str(matrix[i][j]) + ' '
         printString = printString + '\n'
     print(printString)
 
+# Performs scalar multiplication on a matrix
 def scalarMultiplication(scalar, matrix):
     rows = len(matrix)
     columns = len(matrix[0])
@@ -36,17 +36,12 @@ def matrixMultiplication(matrix, edgeMatrix):
                 tempList.append(edgeMatrix[column][i])
             retMatrix[row].append(dotProduct(matrix[row], tempList))
             tempList = []
-    '''
-    for row in range( len(retMatrix) ):
-        if( row >= len(edgeMatrix) ):
-            edgeMatrix.append([])
-        for column in range( len(retMatrix[row]) ):
-            edgeMatrix[row][column] = retMatrix[row][column]
-    '''
+    # Force edge matrix to take the value of retMatrix
     edgeMatrix = retMatrix[:]
     return edgeMatrix
             
-                                  
+
+# Helper function for matrix multiplication         
 def dotProduct(list1, list2):
     dotProduct = 0
     if len(list1) != len(list2):
@@ -56,6 +51,7 @@ def dotProduct(list1, list2):
         dotProduct = dotProduct + (list1[i] * list2[i])
     return dotProduct
 
+# Returns identity matrix of a given matrix
 def getIdentityMatrix(matrix):
     length = max(len(matrix), len(matrix[0]))
     retMatrix = []
@@ -68,19 +64,22 @@ def getIdentityMatrix(matrix):
                 retMatrix[r].append(0)
     return retMatrix
 
-#adds a point to edgeMatrix
+# Adds a point to edgeMatrix
 def addPoint(matrix, a):
     matrix[0].append(a[0])
     matrix[1].append(a[1])
     matrix[2].append(a[2])
     matrix[3].append(1)
 
-#adds an edge to edgeMatrix using addPoint
+# Adds an edge to edgeMatrix using addPoint
 def addEdge(matrix, a, b):
     addPoint(matrix, a)
     addPoint(matrix, b)
 
+# Draws all the edges of edgeMatrix to screen with color
+# Typecasts all floats to rounded ints for drawLine function
+# They remain floats in the edgeMatrix
 def drawEdges(screen, edgeMatrix, color):
     for i in range(0, len(edgeMatrix[0]) - 1, 2):
-        line.drawLine(screen, [edgeMatrix[0][i], edgeMatrix[1][i]], [edgeMatrix[0][i+1], edgeMatrix[1][i+1]], color)
-
+        line.drawLine(screen, [int(round(edgeMatrix[0][i])), int(round(edgeMatrix[1][i]))], [int(round(edgeMatrix[0][i+1])), int(round(edgeMatrix[1][i+1]))], color)
+    print(edgeMatrix[0][1])
