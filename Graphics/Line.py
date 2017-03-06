@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import screen
+import Screen
 
 ## Produces weird lines with some coordinates, needs revision
 
@@ -20,7 +20,7 @@ def drawLine(screen, a, b, color):
         
     # Plot point b
     # This has to be plotted anyway
-    screen.plot(screen, b[0], b[1], color)
+    Screen.plot(screen, b[0], b[1], color)
 
     x = a[0]
     y = a[1]
@@ -34,7 +34,7 @@ def drawLine(screen, a, b, color):
             #Octant II
             d = A + (2 * B)
             while(y > b[1]):
-                screen.plot(screen, x, y, color)
+                Screen.plot(screen, x, y, color)
                 if(d < 0):
                     x = x + 1
                     d = d + A
@@ -44,7 +44,7 @@ def drawLine(screen, a, b, color):
             #Octant I
             d = (2 * A) + B
             while(x < b[0]):
-                screen.plot(screen, x, y, color)
+                Screen.plot(screen, x, y, color)
                 if(d > 0):
                     y = y - 1
                     d = d + B
@@ -57,7 +57,7 @@ def drawLine(screen, a, b, color):
             #Octant VIII
             d = (2 * A) - B
             while(x < b[0]):
-                screen.plot(screen, x, y, color)
+                Screen.plot(screen, x, y, color)
                 if(d < 0):
                     y = y + 1
                     d = d - B
@@ -67,10 +67,10 @@ def drawLine(screen, a, b, color):
             #Octant VII
             d = A - (2 * B)
             while(y < b[1]):
-                screen.plot(screen, x, y, color)
+                Screen.plot(screen, x, y, color)
                 if(d > 0):
                     x = x + 1
                     d = d + A
                 y = y + 1
                 d = d - B
-    screen.plot(screen, b[0], b[1], color)
+    Screen.plot(screen, b[0], b[1], color)

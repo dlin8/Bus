@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-import screen
-import line
+import Line
 
 # Prints a matrix somewhat nicely
 def printMatrix(matrix):
@@ -22,7 +21,9 @@ def scalarMultiplication(scalar, matrix):
         for column in range(0, columns):
             matrix[row][column] = matrix[row][column] * scalar
 
+## Test if this works with matrices of other dimensions
 # This function is specific to 4xN edge matrix multiplied BY a 4x4 matrix
+# Multiplier, Multiplicand
 def matrixMultiplication(matrix, edgeMatrix):
     if len(matrix[0]) != len(edgeMatrix):
         print('matrices cannot be multiplied.')
@@ -81,5 +82,5 @@ def addEdge(matrix, a, b):
 # They remain floats in the edgeMatrix
 def drawEdges(screen, edgeMatrix, color):
     for i in range(0, len(edgeMatrix[0]) - 1, 2):
-        line.drawLine(screen, [int(round(edgeMatrix[0][i])), int(round(edgeMatrix[1][i]))], [int(round(edgeMatrix[0][i+1])), int(round(edgeMatrix[1][i+1]))], color)
+        Line.drawLine(screen, [int(round(edgeMatrix[0][i])), int(round(edgeMatrix[1][i]))], [int(round(edgeMatrix[0][i+1])), int(round(edgeMatrix[1][i+1]))], color)
     print(edgeMatrix[0][1])
