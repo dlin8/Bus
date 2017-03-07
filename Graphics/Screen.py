@@ -10,6 +10,12 @@ def createScreen(width, height):
             screen[i].append([0,0,0])
     return screen
 
+# Sets all screen elements to black
+def clearScreen(screen):
+    for i in range(0, len(screen)):
+        for j in range(0, len(screen[i])):
+            screen[i][j] = [0,0,0]
+
 # Plots a point on x y of screen with color
 # Does not work if x or y are out of bounds
 def plot(screen, x, y, color):

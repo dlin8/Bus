@@ -1,5 +1,5 @@
 run: *.py
-	python3 main.py
+	python3 *.py
 
 clean:
 	rm *.pyc
