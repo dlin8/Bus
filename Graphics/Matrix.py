@@ -83,4 +83,3 @@ def addEdge(matrix, a, b):
 def drawEdges(screen, edgeMatrix, color):
     for i in range(0, len(edgeMatrix[0]) - 1, 2):
         Line.drawLine(screen, [int(round(edgeMatrix[0][i])), int(round(edgeMatrix[1][i]))], [int(round(edgeMatrix[0][i+1])), int(round(edgeMatrix[1][i+1]))], color)
-    print(edgeMatrix[0][1])

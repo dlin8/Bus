@@ -4,15 +4,17 @@ import Screen
 import Line
 import Matrix
 import Transform
+import Parser
 
-edgeMatrix = []
-transformMatrix = []
+edgeMatrix = [ [],[],[],[] ]
+tempScreen = Screen.createScreen(4,4)
+transformMatrix = Matrix.getIdentityMatrix(tempScreen)
 
 def main():
+    green = [0, 255, 0]
     # Line.drawLine(screenOne, [1,0], [499,499], color)
-    scriptFile =  open('script', 'r')
-    #for line in scriptFile:
-    #    print(line)
-    num_lines = sum(1 for line in scriptFile)
-    print(num_lines)
+    screenOne = Screen.createScreen(500,500)
+    Parser.parseFile('script', screenOne, green, edgeMatrix, transformMatrix)
+    Screen.writePpmFile(screenOne, 'test', 'test')
+    
 main()

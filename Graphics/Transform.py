@@ -16,6 +16,7 @@ def createTranslateMatrix(a, b, c):
     translateMatrix[0][3] = a
     translateMatrix[1][3] = b
     translateMatrix[2][3] = c
+    return translateMatrix
     
 # a, b, and c being the amount that each coordinate is scaled by.
 # Scales with respect to origin
@@ -31,27 +32,7 @@ def createScaleMatrix(a, b, c):
     scaleMatrix[0][0] = a
     scaleMatrix[1][1] = b
     scaleMatrix[2][2] = c
-
-def createRotateMatrixX(theta):
-    theta = math.radians(theta)
-    for i in range(0,4):
-        rotateMatrix.append([])
-        for j in range(0,4):
-            if(i == j):
-                rotateMatrix[i].append(1)
-            else:
-                rotateMatrix[i].append(0)
-    rotateMatrix[0][0] = math.cos(theta)
-    rotateMatrix[0][1] = (-1 * math.sin(theta))
-    rotateMatrix[1][0] = math.sin(theta)
-    rotateMatrix[1][1] = math.cos(theta)
-    
-    
-
-    
-# def createRotateMatrixY(theta):
-
-# def createRotateMatrixZ(theta):
+    return scaleMatrix
 
 def createRotateMatrix(axis, theta):
     theta = math.radians(theta)
@@ -86,5 +67,5 @@ def createRotateMatrix(axis, theta):
         # y = ycostheta + xsinthetat
         rotateMatrix[1][1] = math.cos(theta)        #ycostheta
         rotateMatrix[1][0] = math.sin(theta)        #xsintheta
-    print(theta)
-    Matrix.printMatrix(rotateMatrix)
+
+    return rotateMatrix
