@@ -74,7 +74,13 @@ def drawLine(screen, a, b, color):
     # B = -1 * (b[0] - a[0])
 
     # Algorithm follows this general structure:
-    #####################PASS#########################
+    # One coordinate will always be incremented
+    # The other coordinate will either be or not be incremented
+    # This depends on the midpoint of these two possible spaces for the new pixel
+    # The midpoint is substituted into the standard form of the equation representing the line.
+    # Depending on whether this value is positive or negative,
+    # We can determine that most of the line resides in one or the other space
+    # And we can then decide to increment or not increment to have the next pixel be in that space.
     
     if a[1] <= b[1]:
         # Octants 1 or 2 or horizontal line
@@ -100,7 +106,7 @@ def drawLine(screen, a, b, color):
             # Therefore, if d is > 0, do not increment x.
             # Otherwise, if d is < 0, do increment x.
             
-            while(y < b[1]):
+            while(y <= b[1]):
                 plot(screen, x, y, color)
                 if(d < 0):
                     x = x + 1
@@ -111,7 +117,7 @@ def drawLine(screen, a, b, color):
             # Otherwise, the line resides in octant 1
             
             d = (2 * A) + B
-            while(x < b[0]):
+            while(x <= b[0]):
                 plot(screen, x, y, color)
                 if(d > 0):
                     y = y - 1
@@ -124,7 +130,7 @@ def drawLine(screen, a, b, color):
         if A >= B:
             #Octant VIII
             d = (2 * A) - B
-            while(x < b[0]):
+            while(x <= b[0]):
                 plot(screen, x, y, color)
                 if(d < 0):
                     y = y + 1
@@ -134,11 +140,10 @@ def drawLine(screen, a, b, color):
         else:
             #Octant VII
             d = A - (2 * B)
-            while(y < b[1]):
+            while(y <= b[1]):
                 plot(screen, x, y, color)
                 if(d > 0):
                     x = x + 1
                     d = d + A
                 y = y + 1
                 d = d - B
-    plot(screen, b[0], b[1], color)
