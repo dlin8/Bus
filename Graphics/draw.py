@@ -125,6 +125,7 @@ def drawLine(screen, a, b, color):
                 x = x + 1
                 d = d + A
     else:
+        # Otherwise the point a is LOWER than b
         #Octant VII, VIII
         A = a[1] - b[1]
         if A >= B:
