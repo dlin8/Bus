@@ -24,22 +24,23 @@ def scalarMultiplication(scalar, matrix):
 ## Test if this works with matrices of other dimensions
 # This function is specific to 4xN edge matrix multiplied BY a 4x4 matrix
 # Multiplier, Multiplicand
+
+# really buggy, can't get it to change the variable outside of function
 def matrixMultiplication(matrix, edgeMatrix):
     if len(matrix[0]) != len(edgeMatrix):
         print('matrices cannot be multiplied.')
         return false
     retMatrix = []
     tempList = []
-    for row in range( len(matrix) ):
+    for row in range(0, len(matrix)):
         retMatrix.append([])
-        for column in range( len(edgeMatrix[row]) ):
-            for i in range( len(edgeMatrix) ):
-                tempList.append(edgeMatrix[column][i])
+        for column in range(0, len(edgeMatrix[row])):
+            for i in range(0, len(edgeMatrix)):
+                tempList.append(edgeMatrix[i][column])
             retMatrix[row].append(dotProduct(matrix[row], tempList))
             tempList = []
     # Force edge matrix to take the value of retMatrix
-    edgeMatrix = retMatrix[:]
-    return edgeMatrix
+    return retMatrix[:]
             
 
 # Helper function for matrix multiplication         
