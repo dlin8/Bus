@@ -1,54 +1,50 @@
 #!/usr/bin/env python3
 
-import Line
+import draw
+import math
 
 # Prints a matrix somewhat nicely
 def printMatrix(matrix):
     printString = ''
     rows = len(matrix)
     columns = len(matrix[0])
-    for i in range (0, rows):
-        for j in range (0, columns):
+    for i in range (0, len(matrix) ):
+        for j in range (0, len(matrix[0]) ):
             printString = printString + str(matrix[i][j]) + ' '
         printString = printString + '\n'
     print(printString)
 
 # Performs scalar multiplication on a matrix
 def scalarMultiplication(scalar, matrix):
-    rows = len(matrix)
-    columns = len(matrix[0])
-    for row in range(0, rows):
-        for column in range(0, columns):
-            matrix[row][column] = matrix[row][column] * scalar
+    for row in range(0, len(matrix) ):
+        for column in range(0, len(matrix[0])):
+            matrix[row][column] = scalar * matrix[row][column]
 
+    
 ## Test if this works with matrices of other dimensions
 # This function is specific to 4xN edge matrix multiplied BY a 4x4 matrix
 # Multiplier, Multiplicand
 
 # really buggy, can't get it to change the variable outside of function
-def matrixMultiplication(matrix, edgeMatrix):
-    if len(matrix[0]) != len(edgeMatrix):
-        print('matrices cannot be multiplied.')
-        return false
-    retMatrix = []
-    tempList = []
-    for row in range(0, len(matrix)):
-        retMatrix.append([])
-        for column in range(0, len(edgeMatrix[row])):
-            for i in range(0, len(edgeMatrix)):
-                tempList.append(edgeMatrix[i][column])
-            retMatrix[row].append(dotProduct(matrix[row], tempList))
-            tempList = []
-    # Force edge matrix to take the value of retMatrix
-    return retMatrix[:]
-            
+
+# matrix2 = matrix1 * matrix2
+# usually transformMatrix, edgeMatrix
+# most recent transformMatix, masterMatrix
+def matrixMultiplication(matrix1, matrix2):
+    for i in range(0,4):
+        tmp = []
+        for j in range(0,4):
+            tmp.append(matrix2[j][i])
+        for k in range(0,4):
+            matrix2[k][i] = dotProduct(matrix1[k][:], tmp)
+        tmp = []
 
 # Helper function for matrix multiplication         
 def dotProduct(list1, list2):
     dotProduct = 0
     if len(list1) != len(list2):
         print('lists of unequal lengths')
-        return false
+        return False
     for i in range(0, len(list1)):
         dotProduct = dotProduct + (list1[i] * list2[i])
     return dotProduct
@@ -65,6 +61,14 @@ def getIdentityMatrix(matrix):
             else:
                 retMatrix[r].append(0)
     return retMatrix
+
+def setIdentitymatrix(matrix):
+    for i in range(matrix):
+        for j in range(matrix[i]):
+            if(i == j):
+                matrix[i][j] = 1
+            else:
+                matrix[i][j] = 0
 
 # Adds a point to edgeMatrix
 def addPoint(matrix, a):
@@ -83,4 +87,71 @@ def addEdge(matrix, a, b):
 # They remain floats in the edgeMatrix
 def drawEdges(screen, edgeMatrix, color):
     for i in range(0, len(edgeMatrix[0]) - 1, 2):
-        Line.drawLine(screen, [int(round(edgeMatrix[0][i])), int(round(edgeMatrix[1][i]))], [int(round(edgeMatrix[0][i+1])), int(round(edgeMatrix[1][i+1]))], color)
+        draw.drawLine(screen, [int(round(edgeMatrix[0][i])), int(round(edgeMatrix[1][i]))], [int(round(edgeMatrix[0][i+1])), int(round(edgeMatrix[1][i+1]))], color)
+
+# a, b, and c being the amount that each coordinate is translated by.
+def createTranslateMatrix(a, b, c):
+    translateMatrix = []
+    for i in range(0,4):
+        translateMatrix.append([])
+        for j in range(0,4):
+            if(i == j):
+                translateMatrix[i].append(1)
+            else:
+                translateMatrix[i].append(0)
+    translateMatrix[0][3] = a
+    translateMatrix[1][3] = b
+    translateMatrix[2][3] = c
+    return translateMatrix
+    
+# a, b, and c being the amount that each coordinate is scaled by.
+# Scales with respect to origin
+def createScaleMatrix(a, b, c):
+    scaleMatrix = []
+    for i in range(0,4):
+        scaleMatrix.append([])
+        for j in range(0,4):
+            if(i == j):
+                scaleMatrix[i].append(1)
+            else:
+                scaleMatrix[i].append(0)
+    scaleMatrix[0][0] = a
+    scaleMatrix[1][1] = b
+    scaleMatrix[2][2] = c
+    return scaleMatrix
+
+def createRotateMatrix(axis, theta):
+    theta = math.radians(theta)
+    rotateMatrix = []
+    for i in range(0,4):
+        rotateMatrix.append([])
+        for j in range(0,4):
+            if(i == j):
+                rotateMatrix[i].append(1)
+            else:
+                rotateMatrix[i].append(0)
+    if(axis == '0' or axis == 'x'):
+        # y = ycostheta - zsintheta
+        rotateMatrix[1][1] = math.cos(theta)        #ycostheta
+        rotateMatrix[1][2] = (-1 * math.sin(theta)) #-zsintheta
+        # z = zcostheta + ysintheta
+        rotateMatrix[2][2] = math.cos(theta)        #zcostheta
+        rotateMatrix[2][1] = math.sin(theta)        #ysintheta
+        
+    elif(axis == '1' or axis == 'y'):
+        # z = zcostheta - xsintheta
+        rotateMatrix[2][2] = math.cos(theta)        #zcostheta
+        rotateMatrix[2][0] = (-1 * math.sin(theta)) #-xsintheta
+        # x = xcostheta + zsintheta
+        rotateMatrix[0][0] = math.cos(theta)        #xcostheta
+        rotateMatrix[0][2] = math.sin(theta)        #zsintheta
+        
+    elif(axis == '2' or axis == 'z'):
+        # x = xcostheta - ysintheta
+        rotateMatrix[0][0] = math.cos(theta)        #xcostheta
+        rotateMatrix[0][1] = (-1 * math.sin(theta)) #-ysintheta
+        # y = ycostheta + xsinthetat
+        rotateMatrix[1][1] = math.cos(theta)        #ycostheta
+        rotateMatrix[1][0] = math.sin(theta)        #xsintheta
+
+    return rotateMatrix

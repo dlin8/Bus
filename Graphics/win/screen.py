@@ -1,9 +1,5 @@
 #!~/usr/bin/env python3
 
-from subprocess import Popen, PIPE
-from os import remove
-import screen
-
 # createScreen(width, height)
 # Creates a 2D array representing pixels to later write as a ppm file.
 ## arguments:
@@ -53,7 +49,7 @@ def clearScreen(screen):
 ## screen: list of lists; the screen to be written.
 ## fileName: string; fileName of the screen.
 def writePpmFile(screen, fileName):
-    file = open('{}'.format(fileName), 'w')
+    file = open('{}.ppm'.format(fileName), 'w')
     # creates new file with fileName and open it to edit/
     
     file.write('P3\n')
@@ -78,17 +74,3 @@ def writePpmFile(screen, fileName):
             
     file.close()
     # Close file for safety.
-
-def saveExtension( screens, fname ):
-    ppm_name = fname[:fname.find('.')] + '.ppm'
-    writePpmFile( screens, ppm_name )
-    p = Popen( ['convert', ppm_name, fname ], stdin=PIPE, stdout = PIPE )
-    p.communicate()
-    remove(ppm_name)
-
-def display( screens ):
-    ppm_name = 'pic.ppm'
-    writePpmFile( screens, ppm_name )
-    p = Popen( ['display', ppm_name], stdin=PIPE, stdout = PIPE )
-    p.communicate()
-    remove(ppm_name)

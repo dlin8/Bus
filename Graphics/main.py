@@ -1,45 +1,67 @@
 #!~/usr/bin/env python3
 
 # to do list:
-# get display working
 # parser issues
+# comment matrix
+# possible issues with transform
+# comment new screen
 
 import screen
-import imageMagick
 import draw
-# import matrix
-# import transform
+import matrix
 # import parser
 
-# edgeMatrix = [ [],[],[],[] ]
-# tempScreen = Screen.createScreen(4,4)
-# transformMatrix = Matrix.getIdentityMatrix(tempScreen)[:]
-    
+green = [0, 255, 0]
+edgeMatrix = [ [],[],[],[] ]
+tempScreen = screen.createScreen(4,4)
+transformMatrix = matrix.getIdentityMatrix(tempScreen)[:]
+
 def main():
-    green = [0, 255, 0]
-    screenOne = screen.createScreen(500, 500)
-    # Line tests
-    ## Diagonals, vertical, horizontal
-    draw.drawLine(screenOne, [0,0], [499,499], green)
-    draw.drawLine(screenOne, [0,499], [499,0], green)
-    draw.drawLine(screenOne, [0,40], [499,40], green)
-    draw.drawLine(screenOne, [40,0], [40,499], green)
+    screenOne = screen.createScreen(500,500)
+    matrix.addEdge(edgeMatrix, [0,0,0], [100,100,30])
+    matrix.addEdge(edgeMatrix, [0,0,0], [100,100,60])
+    matrix.addEdge(edgeMatrix, [0,0,0], [100,100,90])
+    matrix.addEdge(edgeMatrix, [0,0,0], [100,100,120])
 
-    ## Quadrants
-    draw.drawLine(screenOne, [0,400], [499,200], green)
-    draw.drawLine(screenOne, [0,200], [499,400], green)
-    draw.drawLine(screenOne, [0,450], [40,0], green)
-    draw.drawLine(screenOne, [0,50], [40,499], green)
+    matrix.matrixMultiplication(transformMatrix, edgeMatrix)
+    matrix.drawEdges(screenOne, edgeMatrix, green)
+    screen.display(screenOne)
+    screen.clearScreen(screenOne)
+    
+    matrix.matrixMultiplication(matrix.createTranslateMatrix(20,20,-10) ,transformMatrix)
 
-    ## Many lines
-    for i in range(0,500,15):
-        draw.drawLine(screenOne, [250,250], [499,i], green)
-    for i in range(0,500,10):
-        draw.drawLine(screenOne, [250,250], [0,i], green)
-    for i in range(0,500,25):
-        draw.drawLine(screenOne, [250,250], [i,0], green)
-    for i in range(0,500,15):
-        draw.drawLine(screenOne, [250,250], [i,499] , green)
-    screen.writePpmFile(screenOne, 'lineTest')
-    imageMagick.display(screenOne)
+    matrix.matrixMultiplication(transformMatrix, edgeMatrix)
+    matrix.drawEdges(screenOne, edgeMatrix, green)
+    screen.display(screenOne)
+    screen.clearScreen(screenOne)
+    
+    matrix.matrixMultiplication(matrix.createScaleMatrix(2,2,2), transformMatrix)
+
+    matrix.matrixMultiplication(transformMatrix, edgeMatrix)
+    matrix.drawEdges(screenOne, edgeMatrix, green)
+    screen.display(screenOne)
+    screen.clearScreen(screenOne)
+    
+    matrix.matrixMultiplication(matrix.createRotateMatrix('y', 30) ,transformMatrix)
+
+    matrix.matrixMultiplication(transformMatrix, edgeMatrix)
+    matrix.drawEdges(screenOne, edgeMatrix, green)
+    screen.display(screenOne)
+    screen.clearScreen(screenOne)
+    
+    matrix.matrixMultiplication(matrix.createRotateMatrix('z', 30) ,transformMatrix)
+
+    matrix.matrixMultiplication(transformMatrix, edgeMatrix)
+    matrix.drawEdges(screenOne, edgeMatrix, green)
+    screen.display(screenOne)
+    
 main()
+
+    
+# def theyDontChange(x):
+#     x = x + 2
+# def theyDontChange(x):
+#     x[0] = 999
+# x = [1, 2, 3]
+# theyDontChange(x)
+# print(x)

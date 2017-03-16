@@ -1,9 +1,8 @@
 #!~usr/bin/env python3
 
-import Screen
-import Line
-import Matrix
-import Transform
+import screen
+import draw
+import matrix
 import random
 
 def parseFile(fileName, screen, color, edgeMatrix, transformMatrix):

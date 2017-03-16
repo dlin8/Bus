@@ -1,5 +1,5 @@
-run: Line.py Main.py Matrix.py Parser.py Screen.py Transform.py script
-	python3 Main.py
+run: main.py screen.py draw.py matrix.py
+	python3 main.py
 
 clean:
 	rm *.pyc

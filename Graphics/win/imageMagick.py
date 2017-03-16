@@ -6,7 +6,7 @@ from subprocess import Popen, PIPE
 from os import remove
 import screen
 
-def save_extension( screen, fname ):
+def saveExtension( screen, fname ):
     ppm_name = fname[:fname.find('.')] + '.ppm'
     save_ppm( screen, ppm_name )
     p = Popen( ['convert', ppm_name, fname ], stdin=PIPE, stdout = PIPE )
