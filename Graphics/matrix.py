@@ -31,7 +31,7 @@ def scalarMultiplication(scalar, matrix):
 # usually transformMatrix, edgeMatrix
 # most recent transformMatix, masterMatrix
 def matrixMultiplication(matrix1, matrix2):
-    for i in range(0,4):
+    for i in range(0, len( matrix2[0] ) ):
         tmp = []
         for j in range(0,4):
             tmp.append(matrix2[j][i])
@@ -62,9 +62,9 @@ def getIdentityMatrix(matrix):
                 retMatrix[r].append(0)
     return retMatrix
 
-def setIdentitymatrix(matrix):
-    for i in range(matrix):
-        for j in range(matrix[i]):
+def setIdentityMatrix(matrix):
+    for i in range( len(matrix) ):
+        for j in range( len(matrix[i]) ):
             if(i == j):
                 matrix[i][j] = 1
             else:
@@ -155,3 +155,6 @@ def createRotateMatrix(axis, theta):
         rotateMatrix[1][0] = math.sin(theta)        #xsintheta
 
     return rotateMatrix
+def circle():
+def hemite():
+def bezier():

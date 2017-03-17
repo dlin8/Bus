@@ -12,9 +12,11 @@ import screen
 def plot(screen, x, y, color):
     width = len(screen)
     height = len(screen[0])
-    if(x >= width or y >= height):
+    if(x >= width or x < 0 or y >= height or y < 0):
+        x = x%len(screen)
+        y = y%len(screen)
         print('Out of bounds!')
-        return False
+        # return False
     screen[x][y] = color
     
 # drawLine(screen, a, b, color)
