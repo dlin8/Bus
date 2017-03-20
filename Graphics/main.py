@@ -18,7 +18,11 @@ transformMatrix = matrix.getIdentityMatrix(tempScreen)[:]
 
 def main():
     screenOne = screen.createScreen(500,500)
-    parser.parseFile('script', screenOne, green, edgeMatrix, transformMatrix)
+    draw.circle(edgeMatrix, 350, 350, 0, 50, .01)
+    matrix.drawEdges(screenOne, edgeMatrix, green)
+    screen.display(screenOne)
+    # screenOne = screen.createScreen(500,500)
+    # parser.parseFile('script', screenOne, green, edgeMatrix, transformMatrix)
 main()
 
     

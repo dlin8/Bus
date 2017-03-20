@@ -1,6 +1,8 @@
 #!~/usr/bin/env python3
 
 import screen
+import matrix
+import math
 
 # plot(screen, x, y, color)
 # Plots a point on a screen.
@@ -15,7 +17,7 @@ def plot(screen, x, y, color):
     if(x >= width or x < 0 or y >= height or y < 0):
         x = x%len(screen)
         y = y%len(screen)
-        print('Out of bounds!')
+        #print('Out of bounds!')
         # return False
     screen[x][y] = color
     
@@ -215,3 +217,37 @@ def drawLine(screen, a, b, color):
                 x = x + 1
                 d = d + (2*A)
             
+def brokenCircle(edgeMatrix, x, y, z, r, step):
+    t = 0
+    while t < 1.0001:
+        print(t)
+        matrix.addEdge(edgeMatrix,
+                       
+                       [r*math.cos(2*math.pi*t) + x,
+                        r*math.sin(2*math.pi*t) + y,
+                       z, 1],
+                       
+                       [r*math.cos(2*math.pi*(t+step) + x),
+                        r*math.sin(2*math.pi*(t+step) + y),
+                       z, 1]
+                       )
+        t = t + step
+
+def circle(edgeMatrix, x, y, z, r, step):
+    t = 0
+    while t < 1.0001:
+        print(t)
+        matrix.addEdge(edgeMatrix,
+                       
+                       [r*math.cos(2*math.pi*t) + x,
+                        r*math.sin(2*math.pi*t) + y,
+                       z, 1],
+                       
+                       [r*math.cos(2*math.pi*(t+step) + x),
+                        r*math.sin(2*math.pi*(t+step) + y),
+                       z, 1]
+                       )
+        print(r*math.cos(2*math.pi*t))
+        t = t + step
+
+        

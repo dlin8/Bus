@@ -62,6 +62,7 @@ def getIdentityMatrix(matrix):
                 retMatrix[r].append(0)
     return retMatrix
 
+# For parser
 def setIdentityMatrix(matrix):
     for i in range( len(matrix) ):
         for j in range( len(matrix[i]) ):
@@ -155,6 +156,7 @@ def createRotateMatrix(axis, theta):
         rotateMatrix[1][0] = math.sin(theta)        #xsintheta
 
     return rotateMatrix
-def circle():
-def hemite():
-def bezier():
+def makeHermite():
+    pass
+def makeBezier():
+    pass
