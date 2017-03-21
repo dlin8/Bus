@@ -18,7 +18,7 @@ transformMatrix = matrix.getIdentityMatrix(tempScreen)[:]
 
 def main():
     screenOne = screen.createScreen(500,500)
-    draw.circle(edgeMatrix, 350, 350, 0, 50, .01)
+    draw.circle(edgeMatrix, 250, 250, 0, 50, .00001)
     matrix.drawEdges(screenOne, edgeMatrix, green)
     screen.display(screenOne)
     # screenOne = screen.createScreen(500,500)

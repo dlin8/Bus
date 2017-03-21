@@ -216,38 +216,30 @@ def drawLine(screen, a, b, color):
                     d = d - (2*B)
                 x = x + 1
                 d = d + (2*A)
-            
-def brokenCircle(edgeMatrix, x, y, z, r, step):
-    t = 0
-    while t < 1.0001:
-        print(t)
-        matrix.addEdge(edgeMatrix,
-                       
-                       [r*math.cos(2*math.pi*t) + x,
-                        r*math.sin(2*math.pi*t) + y,
-                       z, 1],
-                       
-                       [r*math.cos(2*math.pi*(t+step) + x),
-                        r*math.sin(2*math.pi*(t+step) + y),
-                       z, 1]
-                       )
-        t = t + step
 
 def circle(edgeMatrix, x, y, z, r, step):
+    # it doesn't get any finer, waste time otherwise.
+    if step < (1 / (r * r)):
+        step = (1 / (r * r))
     t = 0
-    while t < 1.0001:
-        print(t)
+    while t < 1:
         matrix.addEdge(edgeMatrix,
                        
-                       [r*math.cos(2*math.pi*t) + x,
-                        r*math.sin(2*math.pi*t) + y,
-                       z, 1],
+                       [r*math.cos( 2*math.pi*t ) + x,
+                        r*math.sin( 2*math.pi*t ) + y,
+                        z,
+                        1],
                        
-                       [r*math.cos(2*math.pi*(t+step) + x),
-                        r*math.sin(2*math.pi*(t+step) + y),
-                       z, 1]
+                       [r * math.cos( 2*math.pi*(t+step) ) + x,
+                        r * math.sin( 2*math.pi*(t+step) ) + y,
+                        z,
+                        1]
+                        
                        )
-        print(r*math.cos(2*math.pi*t))
         t = t + step
 
+def drawCurve(edgeMatrix, x3, x2, x1, x0, y3, y2, y1, y0, step):
+    while t , 1:
+
+            
         
