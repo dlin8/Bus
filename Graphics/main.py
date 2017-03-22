@@ -17,12 +17,18 @@ tempScreen = screen.createScreen(4,4)
 transformMatrix = matrix.getIdentityMatrix(tempScreen)[:]
 
 def main():
+    #screenOne = screen.createScreen(500,500)
+    #draw.circle(edgeMatrix, 250, 250, 0, 50, .00001)
+    #matrix.drawEdges(screenOne, edgeMatrix, green)
+    
+    # screen.display(screenOne)
     screenOne = screen.createScreen(500,500)
-    draw.circle(edgeMatrix, 250, 250, 0, 50, .00001)
+    draw.curve(edgeMatrix, 150.0, 150.0, 350.0, 150.0, -100.0, -100.0, 100.0, 150.0, 0, 'hermite')
+    #parser.parseFile('script2', screenOne, green, edgeMatrix, transformMatrix)
+    matrix.printMatrix(edgeMatrix)
     matrix.drawEdges(screenOne, edgeMatrix, green)
-    screen.display(screenOne)
-    # screenOne = screen.createScreen(500,500)
-    # parser.parseFile('script', screenOne, green, edgeMatrix, transformMatrix)
+    screen.writePpmFile(screenOne, 'pic.ppm')
+
 main()
 
     

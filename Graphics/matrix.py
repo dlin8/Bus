@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import screen
 import draw
 import math
 
@@ -24,8 +25,6 @@ def scalarMultiplication(scalar, matrix):
 ## Test if this works with matrices of other dimensions
 # This function is specific to 4xN edge matrix multiplied BY a 4x4 matrix
 # Multiplier, Multiplicand
-
-# really buggy, can't get it to change the variable outside of function
 
 # matrix2 = matrix1 * matrix2
 # usually transformMatrix, edgeMatrix
@@ -156,7 +155,87 @@ def createRotateMatrix(axis, theta):
         rotateMatrix[1][0] = math.sin(theta)        #xsintheta
 
     return rotateMatrix
+
+# def makeHermite():
+#     hermiteMatrix = getIdentityMatrix( screen.createScreen(4,4) )
+#     hermiteMatrix[0][0] = 0
+#     hermiteMatrix[0][1] = 0
+#     hermiteMatrix[0][2] = 0
+#     hermiteMatrix[0][3] = 1
+    
+#     hermiteMatrix[1][0] = 1
+#     hermiteMatrix[1][1] = 1
+#     hermiteMatrix[1][2] = 1
+#     hermiteMatrix[1][3] = 1
+    
+#     hermiteMatrix[2][0] = 0
+#     hermiteMatrix[2][1] = 0
+#     hermiteMatrix[2][2] = 1
+#     hermiteMatrix[2][3] = 0
+
+#     hermiteMatrix[3][0] = 3
+#     hermiteMatrix[3][1] = 2
+#     hermiteMatrix[3][2] = 1
+#     hermiteMatrix[3][3] = 0
+    
+#     return hermiteMatrix
+
 def makeHermite():
-    pass
+    hermiteMatrix = getIdentityMatrix( screen.createScreen(4,4) )
+    hermiteMatrix[0][0] = 2.0
+    hermiteMatrix[0][1] = -2.0
+    hermiteMatrix[0][2] = 1.0
+    hermiteMatrix[0][3] = 1.0
+    
+    hermiteMatrix[1][0] = -3.0
+    hermiteMatrix[1][1] = 3.0
+    hermiteMatrix[1][2] = -2.0
+    hermiteMatrix[1][3] = -1.0
+    
+    hermiteMatrix[2][0] = 0.0
+    hermiteMatrix[2][1] = 0.0
+    hermiteMatrix[2][2] = 1.0
+    hermiteMatrix[2][3] = 0.0
+
+    hermiteMatrix[3][0] = 1.0
+    hermiteMatrix[3][1] = 0.0
+    hermiteMatrix[3][2] = 0.0
+    hermiteMatrix[3][3] = 0.0
+    
+    return hermiteMatrix
+
 def makeBezier():
-    pass
+    bezierMatrix = getIdentityMatrix( screen.createScreen(4,4) )
+    bezierMatrix[0][0] = -1.0
+    bezierMatrix[0][1] = 3.0
+    bezierMatrix[0][2] = -3.0
+    bezierMatrix[0][3] = 1.0
+    
+    bezierMatrix[1][0] = 3.0
+    bezierMatrix[1][1] = -6.0
+    bezierMatrix[1][2] = -3.0
+    bezierMatrix[1][3] = 0.0
+    
+    bezierMatrix[2][0] = -3.0
+    bezierMatrix[2][1] = 3.0
+    bezierMatrix[2][2] = 0.0
+    bezierMatrix[2][3] = 0.0
+
+    bezierMatrix[3][0] = 1.0
+    bezierMatrix[3][1] = 0.0
+    bezierMatrix[3][2] = 0.0
+    bezierMatrix[3][3] = 0.0
+
+    return bezierMatrix
+
+def generateCoef(p1, p2, p3, p4, t):
+    coefMatrix = [ [p1], [p2], [p3], [p4], ]
+    if( t == 'hermite' ):
+        matrixMultiplication(makeHermite(), coefMatrix)
+    elif( t == 'bezier' ):
+        matrixMultiplication(makeBezier(), coefMatrix)
+    else:
+        print('invalid curve type')
+    printMatrix(coefMatrix)
+    return coefMatrix
+            

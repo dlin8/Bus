@@ -135,8 +135,8 @@ def drawLine(screen, a, b, color):
                 if(d < 0):
                     x = x + 1
                     d = d + (2*A)
-                y = y - 1
-                d = d + (2*B)
+                    y = y - 1
+                    d = d + (2*B)
         else:
             # Otherwise, the line resides in octant 1.
             # [0, pi/4)
@@ -163,8 +163,8 @@ def drawLine(screen, a, b, color):
                 if(d > 0):
                     y = y - 1 #REMINDER TEXT
                     d = d + (2*B)
-                x = x + 1
-                d = d + (2*A)
+                    x = x + 1
+                    d = d + (2*A)
     else:
         # Otherwise the point a is HIGHER than b.
         # Octant VII, VIII, edge cases.
@@ -190,8 +190,8 @@ def drawLine(screen, a, b, color):
                     # X is not high enough
                     x = x + 1
                     d = d + (2*A) 
-                y = y + 1
-                # Reminder text.
+                    y = y + 1
+                    # Reminder text.
                 d = d - (2*B)
                 # Decrement because y is DECREASING, b term must decrease as well.
                 # Confusing because b is actually negative, so d is actually increasing.
@@ -214,14 +214,14 @@ def drawLine(screen, a, b, color):
                     # Y is too high.
                     y = y + 1
                     d = d - (2*B)
-                x = x + 1
-                d = d + (2*A)
+                    x = x + 1
+                    d = d + (2*A)
 
 def circle(edgeMatrix, x, y, z, r, step):
     # it doesn't get any finer, waste time otherwise.
     if step < (1 / (r * r)):
         step = (1 / (r * r))
-    t = 0
+        t = 0
     while t < 1:
         matrix.addEdge(edgeMatrix,
                        
@@ -234,12 +234,25 @@ def circle(edgeMatrix, x, y, z, r, step):
                         r * math.sin( 2*math.pi*(t+step) ) + y,
                         z,
                         1]
-                        
+                       
                        )
         t = t + step
 
-def drawCurve(edgeMatrix, x3, x2, x1, x0, y3, y2, y1, y0, step):
-    while t , 1:
-
-            
+def curve(edgeMatrix, x0, y0, x1, y1, x2, y2, x3, y3, step, curveType):
+    if step == 0:
+        step = 1 / 50.0
+    step = float(step)
+    coefX = matrix.generateCoef( x0, x1, x2, x3, curveType )
+    coefY = matrix.generateCoef( y0, y1, y2, y3, curveType )
+    newX = x0
+    newY = x1
+    t = 0
+    while t < 1:
+        t = t + step
         
+        oldX = newX
+        oldY = newY
+        newX = (coefX[0][0] * math.pow(t, 3)) + (coefX[1][0] * math.pow(t, 2)) + (coefX[2][0] * t) + coefX[3][0]
+        newY = (coefY[0][0] * math.pow(t, 3)) + (coefY[1][0] * math.pow(t, 2)) + (coefY[2][0] * t) + coefY[3][0]
+        
+        matrix.addEdge( edgeMatrix, [oldX, oldY, 0], [newX, newY, 0] )
