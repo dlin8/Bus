@@ -7,6 +7,9 @@ import random
 import time
 
 def parseFile(fileName, screens, color, edgeMatrix, transformMatrix):
+    screenWidth = len(screens[0])
+    screenHeight = len(screens)
+    print(screenWidth, screenHeight)
     scriptFile = open('{}'.format(fileName), 'r')
     for line in scriptFile:
         currentLine = line.split()

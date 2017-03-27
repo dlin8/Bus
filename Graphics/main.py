@@ -22,12 +22,12 @@ def main():
     #matrix.drawEdges(screenOne, edgeMatrix, green)
     
     # screen.display(screenOne)
-    screenOne = screen.createScreen(500,500)
-    draw.curve(edgeMatrix, 150.0, 150.0, 350.0, 150.0, -100.0, -100.0, 100.0, 150.0, 0, 'hermite')
-    #parser.parseFile('script2', screenOne, green, edgeMatrix, transformMatrix)
-    matrix.printMatrix(edgeMatrix)
+    screenOne = screen.createScreen(1000,500)
+    parser.parseFile('script2', screenOne, green, edgeMatrix, transformMatrix)
+    #matrix.printMatrix(edgeMatrix)
     matrix.drawEdges(screenOne, edgeMatrix, green)
-    screen.writePpmFile(screenOne, 'pic.ppm')
+    screen.display(screenOne)
+    # screen.writePpmFile(screenOne, 'pic.ppm')
 
 main()
 

@@ -85,10 +85,14 @@ def addEdge(matrix, a, b):
 # Draws all the edges of edgeMatrix to screen with color
 # Typecasts all floats to rounded ints for drawLine function
 # They remain floats in the edgeMatrix
-def drawEdges(screen, edgeMatrix, color):
-    for i in range(0, len(edgeMatrix[0]) - 1, 2):
-        draw.drawLine(screen, [int(round(edgeMatrix[0][i])), int(round(edgeMatrix[1][i]))], [int(round(edgeMatrix[0][i+1])), int(round(edgeMatrix[1][i+1]))], color)
-
+def drawEdges(screen, edges, color):
+    for i in range(0, len( edges[0] ) - 1, 2):
+        draw.drawLine(screen,
+                      [ int( round( edges[0][i] ) ),
+                        int( round( edges[1][i] ) ) ],
+                        [ int( round( edges[0][i+1] ) ),
+                          int( round( edges[1][i+1] ) ) ],
+                          color )
 # a, b, and c being the amount that each coordinate is translated by.
 def createTranslateMatrix(a, b, c):
     translateMatrix = []

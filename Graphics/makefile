@@ -1,6 +1,6 @@
-run: main.py screen.py draw.py matrix.py parser.py
+run: main.py screen.py draw.py matrix.py parser.py 
 	python3 main.py
 
-clean:
+cleayn:
 	rm *.pyc
 	rm *~

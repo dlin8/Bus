@@ -74,7 +74,7 @@ def drawLine(screen, a, b, color):
     # (B = -dx) point b is always to the right of a because we swapped if not.
     # b[0] >= a[0]
     # B = -1 * (b[0] - a[0])
-
+    
     # Algorithm follows this general structure:
     # One coordinate will always be incremented.
     # The other coordinate will either be or not be incremented.
@@ -135,8 +135,8 @@ def drawLine(screen, a, b, color):
                 if(d < 0):
                     x = x + 1
                     d = d + (2*A)
-                    y = y - 1
-                    d = d + (2*B)
+                y = y - 1
+                d = d + (2*B)
         else:
             # Otherwise, the line resides in octant 1.
             # [0, pi/4)
@@ -163,8 +163,8 @@ def drawLine(screen, a, b, color):
                 if(d > 0):
                     y = y - 1 #REMINDER TEXT
                     d = d + (2*B)
-                    x = x + 1
-                    d = d + (2*A)
+                x = x + 1
+                d = d + (2*A)
     else:
         # Otherwise the point a is HIGHER than b.
         # Octant VII, VIII, edge cases.
@@ -190,7 +190,7 @@ def drawLine(screen, a, b, color):
                     # X is not high enough
                     x = x + 1
                     d = d + (2*A) 
-                    y = y + 1
+                y = y + 1
                     # Reminder text.
                 d = d - (2*B)
                 # Decrement because y is DECREASING, b term must decrease as well.
@@ -214,14 +214,14 @@ def drawLine(screen, a, b, color):
                     # Y is too high.
                     y = y + 1
                     d = d - (2*B)
-                    x = x + 1
-                    d = d + (2*A)
+                x = x + 1
+                d = d + (2*A)
 
 def circle(edgeMatrix, x, y, z, r, step):
     # it doesn't get any finer, waste time otherwise.
     if step < (1 / (r * r)):
         step = (1 / (r * r))
-        t = 0
+    t = 0
     while t < 1:
         matrix.addEdge(edgeMatrix,
                        
