@@ -7,13 +7,12 @@ import random
 import time
 
 def parseFile(fileName, screens, color, edgeMatrix, transformMatrix):
-    screenWidth = len(screens[0])
-    screenHeight = len(screens)
-    print(screenWidth, screenHeight)
     scriptFile = open('{}'.format(fileName), 'r')
     for line in scriptFile:
         currentLine = line.split()
-        if(currentLine[0] == 'line'):
+        if(currentLine[0][0] == '#'):
+            argumentLine = scriptFile.readline().split()
+        elif(currentLine[0] == 'line'):
             argumentLine = scriptFile.readline().split()
             a = [ float(argumentLine[0]), float(argumentLine[1]), float(argumentLine[2]) ]
             b = [ float(argumentLine[3]), float(argumentLine[4]), float(argumentLine[5]) ]

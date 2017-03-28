@@ -160,30 +160,6 @@ def createRotateMatrix(axis, theta):
 
     return rotateMatrix
 
-# def makeHermite():
-#     hermiteMatrix = getIdentityMatrix( screen.createScreen(4,4) )
-#     hermiteMatrix[0][0] = 0
-#     hermiteMatrix[0][1] = 0
-#     hermiteMatrix[0][2] = 0
-#     hermiteMatrix[0][3] = 1
-    
-#     hermiteMatrix[1][0] = 1
-#     hermiteMatrix[1][1] = 1
-#     hermiteMatrix[1][2] = 1
-#     hermiteMatrix[1][3] = 1
-    
-#     hermiteMatrix[2][0] = 0
-#     hermiteMatrix[2][1] = 0
-#     hermiteMatrix[2][2] = 1
-#     hermiteMatrix[2][3] = 0
-
-#     hermiteMatrix[3][0] = 3
-#     hermiteMatrix[3][1] = 2
-#     hermiteMatrix[3][2] = 1
-#     hermiteMatrix[3][3] = 0
-    
-#     return hermiteMatrix
-
 def makeHermite():
     hermiteMatrix = getIdentityMatrix( screen.createScreen(4,4) )
     hermiteMatrix[0][0] = 2.0
@@ -217,7 +193,7 @@ def makeBezier():
     
     bezierMatrix[1][0] = 3.0
     bezierMatrix[1][1] = -6.0
-    bezierMatrix[1][2] = -3.0
+    bezierMatrix[1][2] = 3.0
     bezierMatrix[1][3] = 0.0
     
     bezierMatrix[2][0] = -3.0
@@ -240,6 +216,5 @@ def generateCoef(p1, p2, p3, p4, t):
         matrixMultiplication(makeBezier(), coefMatrix)
     else:
         print('invalid curve type')
-    printMatrix(coefMatrix)
     return coefMatrix
             

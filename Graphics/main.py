@@ -22,7 +22,7 @@ def main():
     #matrix.drawEdges(screenOne, edgeMatrix, green)
     
     # screen.display(screenOne)
-    screenOne = screen.createScreen(1000,500)
+    screenOne = screen.createScreen(500, 1000)
     parser.parseFile('script2', screenOne, green, edgeMatrix, transformMatrix)
     #matrix.printMatrix(edgeMatrix)
     matrix.drawEdges(screenOne, edgeMatrix, green)

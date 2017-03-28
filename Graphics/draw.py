@@ -240,16 +240,14 @@ def circle(edgeMatrix, x, y, z, r, step):
 
 def curve(edgeMatrix, x0, y0, x1, y1, x2, y2, x3, y3, step, curveType):
     if step == 0:
-        step = 1 / 50.0
-    step = float(step)
+        step = 1 / 100.0
     coefX = matrix.generateCoef( x0, x1, x2, x3, curveType )
     coefY = matrix.generateCoef( y0, y1, y2, y3, curveType )
     newX = x0
-    newY = x1
+    newY = y0
     t = 0
     while t < 1:
         t = t + step
-        
         oldX = newX
         oldY = newY
         newX = (coefX[0][0] * math.pow(t, 3)) + (coefX[1][0] * math.pow(t, 2)) + (coefX[2][0] * t) + coefX[3][0]
