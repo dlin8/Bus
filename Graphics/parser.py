@@ -11,7 +11,7 @@ def parseFile(fileName, screens, color, edgeMatrix, transformMatrix):
     for line in scriptFile:
         currentLine = line.split()
         if(currentLine[0][0] == '#'):
-            argumentLine = scriptFile.readline().split()
+            pass
         elif(currentLine[0] == 'line'):
             argumentLine = scriptFile.readline().split()
             a = [ float(argumentLine[0]), float(argumentLine[1]), float(argumentLine[2]) ]
@@ -40,13 +40,24 @@ def parseFile(fileName, screens, color, edgeMatrix, transformMatrix):
         elif(currentLine[0] == 'bezier'):
             argumentLine = scriptFile.readline().split()
             draw.curve(edgeMatrix, float(argumentLine[0]), float(argumentLine[1]), float(argumentLine[2]), float(argumentLine[3]), float(argumentLine[4]), float(argumentLine[5]), float(argumentLine[6]), float(argumentLine[7]), 0, 'bezier')
+        elif(currentLine[0] == 'box'):
+            argumentLine = scriptFile.readline().split()
+            draw.box(edgeMatrix, float(argumentLine[0]), float(argumentLine[1]), float(argumentLine[2]), float(argumentLine[3]), float(argumentLine[4]), float(argumentLine[5]) )
+        elif(currentLine[0] == 'sphere'):
+            argumentLine = scriptFile.readline().split()
+            draw.sphere(edgeMatrix, float(argumentLine[0]), float(argumentLine[1]), float(argumentLine[2]), float(argumentLine[3]), 0)
+        elif(currentLine[0] == 'torus'):
+            argumentLine = scriptFile.readline().split()
+            draw.torus(edgeMatrix, float(argumentLine[0]), float(argumentLine[1]), float(argumentLine[2]), float(argumentLine[3]), float(argumentLine[4]), 0 )
+        elif(currentLine[0] == 'clear'):
+            edgeMatrix = [ [], [], [], [] ]
         elif(currentLine[0] == 'apply'):
             matrix.matrixMultiplication(transformMatrix, edgeMatrix)
         elif(currentLine[0] == 'display'):
             matrix.drawEdges(screens, edgeMatrix, color)
             screen.display(screens)
             screen.clearScreen(screens)
-            time.sleep(1)
+            time.sleep(.01)
         elif(currentLine[0] == 'save'):
             argumentLine = scriptFile.readline().split()
             matrix.drawEdges(screens, edgeMatrix, color)

@@ -254,3 +254,83 @@ def curve(edgeMatrix, x0, y0, x1, y1, x2, y2, x3, y3, step, curveType):
         newY = (coefY[0][0] * math.pow(t, 3)) + (coefY[1][0] * math.pow(t, 2)) + (coefY[2][0] * t) + coefY[3][0]
         
         matrix.addEdge( edgeMatrix, [oldX, oldY, 0], [newX, newY, 0] )
+
+def box(edgeMatrix, x, y, z, w, h, d):
+    matrix.addEdge( edgeMatrix, [x, y, z], [x, y, z] )
+    matrix.addEdge( edgeMatrix, [x, y+h, z], [x, y+h, z] )
+    matrix.addEdge( edgeMatrix, [x+w, y, z], [x+w, y, z] )
+    matrix.addEdge( edgeMatrix, [x+w, y+h, z], [x+w, y+h, z] )
+    matrix.addEdge( edgeMatrix, [x, y, z-d], [x, y, z-d] )
+    matrix.addEdge( edgeMatrix, [x, y+h, z-d], [x, y+h, z-d] )
+    matrix.addEdge( edgeMatrix, [x+w, y, z-d], [x+w, y, z-d] )
+    matrix.addEdge( edgeMatrix, [x+w, y+h, z-d], [x+w, y+h, z-d] )
+
+def semicircle(edgeMatrix, x, y, z, r, step):
+    if step < (1 / (r * r)):
+        step = (1 / (r * r))
+    phi = 0
+    
+    while t < .5:
+        matrix.addEdge(edgeMatrix,
+                       
+                       [r*math.cos( 2*math.pi*t ) + x,
+                        r*math.sin( 2*math.pi*t ) + y,
+                        z,
+                        1],
+                       
+                       [r * math.cos( 2*math.pi*(t+step) ) + x,
+                        r * math.sin( 2*math.pi*(t+step) ) + y,
+                        z,
+                        1]
+                       
+                       )
+        t = t + step
+        
+def sphere(edgeMatrix, cx, cy, cz, r, step):
+    if step == 0:
+        step = .025
+    phi = 0
+    while phi < (2 * math.pi):
+        rotate = [ [1, 0, 0, 0],
+                   [0, math.cos(phi), math.sin(phi), 0],
+                   [0, math.sin(phi), -1 * math.cos(phi) ,0],
+                   [0, 0, 0, 1] ]
+        theta = 0
+        while theta < math.pi:
+            semicircle = [ [r * math.cos(theta)],
+                           [r * math.sin(theta)],
+                           [0],
+                           [1] ]
+            matrix.matrixMultiplication( rotate, semicircle )
+            matrix.addEdge( edgeMatrix,
+                            [semicircle[0][0]+cx, semicircle[1][0]+cy, semicircle[2][0]+cz],
+                            [semicircle[0][0]+cx, semicircle[1][0]+cy, semicircle[2][0]+cz] )
+            theta = theta + (math.pi / 30)
+        phi = phi + (step * 2 * math.pi)
+
+def torus(edgeMatrix, cx, cy, cz, r, R, step):
+    if step == 0:
+        step = .025
+    phi = 0
+    while phi < (2 * math.pi):
+        rotate = [ [math.cos(phi), 0, math.sin(phi), 0],
+                   [0, 1, 0, 0],
+                   [ -1 * math.sin(phi), 0, math.cos(phi) ,0],
+                   [0, 0, 0, 1] ]
+        theta = 0
+        while theta < (2 * math.pi):
+            circle = [ [ (r * math.cos(theta) ) + R],
+                       [r * math.sin(theta)],
+                       [0],
+                       [1] ]
+            matrix.matrixMultiplication( rotate, circle )
+            matrix.addEdge( edgeMatrix,
+                            [circle[0][0]+cx, circle[1][0]+cy, circle[2][0]+cz],
+                            [circle[0][0]+cx, circle[1][0]+cy, circle[2][0]+cz] )
+            theta = theta + (2 * math.pi / 30)
+        phi = phi + (step * 2 * math.pi)
+    
+
+
+    
+    

@@ -22,9 +22,8 @@ def main():
     #matrix.drawEdges(screenOne, edgeMatrix, green)
     
     # screen.display(screenOne)
-    screenOne = screen.createScreen(500, 1000)
-    parser.parseFile('script2', screenOne, green, edgeMatrix, transformMatrix)
-    #matrix.printMatrix(edgeMatrix)
+    screenOne = screen.createScreen(500, 500)
+    parser.parseFile('script3', screenOne, green, edgeMatrix, transformMatrix)
     matrix.drawEdges(screenOne, edgeMatrix, green)
     screen.display(screenOne)
     # screen.writePpmFile(screenOne, 'pic.ppm')
