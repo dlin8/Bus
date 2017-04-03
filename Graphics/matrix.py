@@ -71,16 +71,21 @@ def setIdentityMatrix(matrix):
                 matrix[i][j] = 0
 
 # Adds a point to edgeMatrix
-def addPoint(matrix, a):
-    matrix[0].append(a[0])
-    matrix[1].append(a[1])
-    matrix[2].append(a[2])
-    matrix[3].append(1)
+def addPoint(edgeMatrix, a):
+    edgeMatrix[0].append(a[0])
+    edgeMatrix[1].append(a[1])
+    edgeMatrix[2].append(a[2])
+    edgeMatrix[3].append(1)
 
 # Adds an edge to edgeMatrix using addPoint
-def addEdge(matrix, a, b):
-    addPoint(matrix, a)
-    addPoint(matrix, b)
+def addEdge(edgeMatrix, a, b):
+    addPoint(edgeMatrix, a)
+    addPoint(edgeMatrix, b)
+
+def addPolygons(edgeMatrix, a, b, c):
+    addPoint(edgeMatrix, a)
+    addPoint(edgeMatrix, b)
+    addPoint(edgeMatrix, c)
 
 # Draws all the edges of edgeMatrix to screen with color
 # Typecasts all floats to rounded ints for drawLine function
@@ -93,6 +98,25 @@ def drawEdges(screen, edges, color):
                         [ int( round( edges[0][i+1] ) ),
                           int( round( edges[1][i+1] ) ) ],
                           color )
+
+def drawPolygons(screen, edges, color):
+    for i in range(0, len( edges[0] )  - 1, 3):
+        draw.drawLine(screen,
+                      [int( round( edges[0][i]   )), int( round( edges[1][i]   ))],
+                      [int( round( edges[0][i+1] )), int( round( edges[1][i+1] ))],
+                      color
+                      )
+        draw.drawLine(screen,
+                      [int( round( edges[0][i+1] )), int( round( edges[1][i+1] ))],
+                      [int( round( edges[0][i+2] )), int( round( edges[1][i+2] ))],
+                      color
+                      )
+        draw.drawLine(screen,
+                      [int( round( edges[0][i+2] )), int( round( edges[1][i+2] ))],
+                      [int( round( edges[0][i]   )), int( round( edges[1][i]   ))],
+                      color
+                      )
+        
 # a, b, and c being the amount that each coordinate is translated by.
 def createTranslateMatrix(a, b, c):
     translateMatrix = []

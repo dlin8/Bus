@@ -256,35 +256,32 @@ def curve(edgeMatrix, x0, y0, x1, y1, x2, y2, x3, y3, step, curveType):
         matrix.addEdge( edgeMatrix, [oldX, oldY, 0], [newX, newY, 0] )
 
 def box(edgeMatrix, x, y, z, w, h, d):
-    matrix.addEdge( edgeMatrix, [x, y, z], [x, y, z] )
-    matrix.addEdge( edgeMatrix, [x, y+h, z], [x, y+h, z] )
-    matrix.addEdge( edgeMatrix, [x+w, y, z], [x+w, y, z] )
-    matrix.addEdge( edgeMatrix, [x+w, y+h, z], [x+w, y+h, z] )
-    matrix.addEdge( edgeMatrix, [x, y, z-d], [x, y, z-d] )
-    matrix.addEdge( edgeMatrix, [x, y+h, z-d], [x, y+h, z-d] )
-    matrix.addEdge( edgeMatrix, [x+w, y, z-d], [x+w, y, z-d] )
-    matrix.addEdge( edgeMatrix, [x+w, y+h, z-d], [x+w, y+h, z-d] )
+    matrix.addPolygons( edgeMatrix, [x, y, z], [x+w, y, z], [x, y+h, z] )
+    matrix.addPolygons( edgeMatrix, [x+w, y, z], [x, y+h, z], [x+w, y+h, z] )
+    matrix.addPolygons( edgeMatrix, [x, y+h, z], [x+w, y+h, z], [x, y+h, -z] )
+    matrix.addPolygons( edgeMatrix, [x+w, y+h, z], [x, y+h, -z], [x+w, y+h, -z] )
+    matrix.addPolygons( edgeMatrix, [x, y+h, -z], [x+w, y+h, -z], [x, y, -z] )
+    matrix.addPolygons( edgeMatrix, [x+w, y+h, -z], [x, y, -z], [x+w, y, -z] )
+    matrix.addPolygons( edgeMatrix, [x, y, -z], [x+w, y, -z], [x, y, z] )
+    matrix.addPolygons( edgeMatrix, [x+w, y, -z], [x, y, z], [x+w, y, z] )
 
-def semicircle(edgeMatrix, x, y, z, r, step):
-    if step < (1 / (r * r)):
-        step = (1 / (r * r))
-    phi = 0
+    # slice = 2 points
+    # [x, y, z]
+    # [x+w, y, z]
+    # [x, y+h, z]
+    # [x+w, y+h, z]
     
-    while t < .5:
-        matrix.addEdge(edgeMatrix,
-                       
-                       [r*math.cos( 2*math.pi*t ) + x,
-                        r*math.sin( 2*math.pi*t ) + y,
-                        z,
-                        1],
-                       
-                       [r * math.cos( 2*math.pi*(t+step) ) + x,
-                        r * math.sin( 2*math.pi*(t+step) ) + y,
-                        z,
-                        1]
-                       
-                       )
-        t = t + step
+    # [x, y+h, -z]
+    # [x+w, y+h, -z]
+    # [x, y, -z]
+    # [x+w, y, -z]
+    
+    # [x, y, z]
+    # [x+w, y, z]
+    # [x, y+h, z]
+    # [x+w, y+h, z]
+    
+
         
 def sphere(edgeMatrix, cx, cy, cz, r, step):
     if step == 0:

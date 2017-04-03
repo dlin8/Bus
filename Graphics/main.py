@@ -23,8 +23,13 @@ def main():
     
     # screen.display(screenOne)
     screenOne = screen.createScreen(500, 500)
-    parser.parseFile('script3', screenOne, green, edgeMatrix, transformMatrix)
-    matrix.drawEdges(screenOne, edgeMatrix, green)
+    #parser.parseFile('script3', screenOne, green, edgeMatrix, transformMatrix)
+    draw.box(edgeMatrix, 0, 0, 0, 100, 50, 50)
+    matrix.drawPolygons(screenOne, edgeMatrix, green)
+    #matrix.printMatrix(edgeMatrix)
+    matrix.matrixMultiplication(matrix.createRotateMatrix('z', 30), edgeMatrix)
+    #matrix.printMatrix(edgeMatrix)
+    #matrix.printMatrix(edgeMatrix)
     screen.display(screenOne)
     # screen.writePpmFile(screenOne, 'pic.ppm')
 
