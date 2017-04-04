@@ -82,7 +82,7 @@ def addEdge(edgeMatrix, a, b):
     addPoint(edgeMatrix, a)
     addPoint(edgeMatrix, b)
 
-def addPolygons(edgeMatrix, a, b, c):
+def addPolygon(edgeMatrix, a, b, c):
     addPoint(edgeMatrix, a)
     addPoint(edgeMatrix, b)
     addPoint(edgeMatrix, c)
