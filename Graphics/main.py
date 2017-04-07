@@ -1,10 +1,13 @@
 #!~/usr/bin/env python3
 
 # to do list:
-# parser issues
-# comment matrix
-# possible issues with transform
-# comment new screen
+# Clean
+# [ ] screen.py
+# [ ] draw.py
+# [ ] matrix.py
+# [ ] parser.py
+# [ ] 
+
 
 import screen
 import draw
@@ -17,30 +20,33 @@ tempScreen = screen.createScreen(4,4)
 transformMatrix = matrix.getIdentityMatrix(tempScreen)[:]
 
 def main():
-    #screenOne = screen.createScreen(500,500)
-    #draw.circle(edgeMatrix, 250, 250, 0, 50, .00001)
-    #matrix.drawEdges(screenOne, edgeMatrix, green)
-    
-    # screen.display(screenOne)
     screenOne = screen.createScreen(500, 500)
-    matrix.addPolygon( edgeMatrix, [0,0,0], [0,100,0], [100, 100, 0] )
-    matrix.addPolygon( edgeMatrix, [100,0,300], [100,100,300], [200, 100, 300] )
-    for i in range(0, 300):
-        matrix.addPoint( edgeMatrix, [.33 * i, 0, i ] )
-        matrix.addPoint( edgeMatrix, [.33 * i, 0, i ] )
-        matrix.addPoint( edgeMatrix, [.33 * i, 0, i ] )
-    #draw.box(edgeMatrix, 100, 100, 100, 100, 200, 300)
-    matrix.printMatrix(edgeMatrix)
-    matrix.matrixMultiplication(matrix.createRotateMatrix('x', 30), edgeMatrix)
-    matrix.matrixMultiplication(matrix.createRotateMatrix('y', 15), edgeMatrix)
+
+    draw.box(edgeMatrix, 250, 250, 0, 100, 100, 100)
+    
+    matrix.matrixMultiplication(matrix.createRotateMatrix('z', -30), edgeMatrix)
+    draw.box(edgeMatrix, 250, 250, 0, 100, 100, 100)
+    matrix.matrixMultiplication(matrix.createRotateMatrix('x', -45), edgeMatrix)
+    matrix.matrixMultiplication(matrix.createRotateMatrix('y', -45), edgeMatrix)
+    
+    
     matrix.drawPolygons(screenOne, edgeMatrix, green)
-    matrix.printMatrix(edgeMatrix)
-    #matrix.printMatrix(edgeMatrix)
+    screen.saveExtension(screenOne, 'pic.png')
     screen.display(screenOne)
     # screen.writePpmFile(screenOne, 'pic.ppm')
 
 main()
 
+
+def foo(val1, val2, val3, calcSum=True):
+    # Calculate the sum
+    if calcSum:
+        return val1 + val2 + val3
+    # Calculate the average instead
+    else:
+        return (val1 + val2 + val3) / 3
+
+print( foo(1, 2, 3) )
     
 # def theyDontChange(x):
 #     x = x + 2

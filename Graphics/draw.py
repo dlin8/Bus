@@ -1,8 +1,19 @@
 #!~/usr/bin/env python3
 
+
 import screen
 import matrix
 import math
+
+
+# FUNction list:
+## plot(screen, x, y, color)
+## drawLine(screen, a, b, color)
+## circle
+## curve
+## box
+## sphere
+## torus
 
 # plot(screen, x, y, color)
 # Plots a point on a screen.
@@ -265,15 +276,15 @@ def box(edgeMatrix, x, y, z, w, h, d):
     #bottom
     matrix.addPolygon( edgeMatrix, [x, y+h, z], [x, y+h, z-d], [x+w, y+h, z] )
     matrix.addPolygon( edgeMatrix, [x, y+h, z-d], [x+w, y+h, z-d], [x+w, y+h, z] )
-    # #left
-    # matrix.addPolygon( edgeMatrix, [x, y, z-d], [x, y+h, z-d], [x, y, z] )
-    # matrix.addPolygon( edgeMatrix, [x, y+h, z-d], [x, y+h, z], [x, y, z] )
-    # #right
-    # matrix.addPolygon( edgeMatrix, [x+w, y, z], [x+w, y+h, z], [x+w, y, z-d] )
-    # matrix.addPolygon( edgeMatrix, [x+w, y+h, z], [x+w, y+h, z-d], [x+w, y, z-d] )
-    # #back
-    #matrix.addPolygon( edgeMatrix, [x+w, y, z-d], [x+w, y+h, z-d], [x, y, z-d] )
-    #matrix.addPolygon( edgeMatrix, [x+w, y+h, z-d], [x, y+h, z-d], [x, y, z-d] )
+    #left
+    matrix.addPolygon( edgeMatrix, [x, y, z-d], [x, y+h, z-d], [x, y, z] )
+    matrix.addPolygon( edgeMatrix, [x, y+h, z-d], [x, y+h, z], [x, y, z] )
+    #right
+    matrix.addPolygon( edgeMatrix, [x+w, y, z], [x+w, y+h, z], [x+w, y, z-d] )
+    matrix.addPolygon( edgeMatrix, [x+w, y+h, z], [x+w, y+h, z-d], [x+w, y, z-d] )
+    #back
+    matrix.addPolygon( edgeMatrix, [x+w, y, z-d], [x+w, y+h, z-d], [x, y, z-d] )
+    matrix.addPolygon( edgeMatrix, [x+w, y+h, z-d], [x, y+h, z-d], [x, y, z-d] )
         
 def sphere(edgeMatrix, cx, cy, cz, r, step):
     if step == 0:

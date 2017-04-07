@@ -1,8 +1,19 @@
 #!/usr/bin/env python3
 
+
 import screen
 import draw
 import math
+
+
+# FUNction list:
+## printMatrix(matrix)
+## scalarMultiplication(scalar, matrix)
+## matrixMultiplication(matrix1, matrix2)
+## dotProduct()
+#! crossProduct()
+## identityMatrixOf
+## 
 
 # Prints a matrix somewhat nicely
 def printMatrix(matrix):
@@ -159,28 +170,28 @@ def createRotateMatrix(axis, theta):
             else:
                 rotateMatrix[i].append(0)
     if(axis == '0' or axis == 'x'):
-        # y = ycostheta - zsintheta
+        # y = ycostheta + zsintheta
         rotateMatrix[1][1] = math.cos(theta)        #ycostheta
-        rotateMatrix[1][2] = (-1 * math.sin(theta)) #-zsintheta
-        # z = zcostheta + ysintheta
+        rotateMatrix[1][2] = math.sin(theta)        #zsintheta
+        # z = zcostheta - ysintheta
         rotateMatrix[2][2] = math.cos(theta)        #zcostheta
-        rotateMatrix[2][1] = math.sin(theta)        #ysintheta
+        rotateMatrix[2][1] = -1 * math.sin(theta)   #-ysintheta
         
     elif(axis == '1' or axis == 'y'):
-        # z = zcostheta - xsintheta
+        # z = zcostheta + xsintheta
         rotateMatrix[2][2] = math.cos(theta)        #zcostheta
-        rotateMatrix[2][0] = (-1 * math.sin(theta)) #-xsintheta
-        # x = xcostheta + zsintheta
+        rotateMatrix[2][0] = math.sin(theta)        #xsintheta
+        # x = xcostheta - zsintheta
         rotateMatrix[0][0] = math.cos(theta)        #xcostheta
-        rotateMatrix[0][2] = math.sin(theta)        #zsintheta
+        rotateMatrix[0][2] = -1 * math.sin(theta)   #-zsintheta
         
     elif(axis == '2' or axis == 'z'):
-        # x = xcostheta - ysintheta
+        # x = xcostheta + ysintheta
         rotateMatrix[0][0] = math.cos(theta)        #xcostheta
-        rotateMatrix[0][1] = (-1 * math.sin(theta)) #-ysintheta
-        # y = ycostheta + xsinthetat
+        rotateMatrix[0][1] = math.sin(theta)        #ysintheta
+        # y = ycostheta - xsintheta
         rotateMatrix[1][1] = math.cos(theta)        #ycostheta
-        rotateMatrix[1][0] = math.sin(theta)        #xsintheta
+        rotateMatrix[1][0] = -1 * math.sin(theta)   #-xsintheta
 
     return rotateMatrix
 

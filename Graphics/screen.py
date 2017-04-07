@@ -1,8 +1,18 @@
 #!~/usr/bin/env python3
 
+
 from subprocess import Popen, PIPE
 from os import remove
 import screen
+
+
+# FUNction list:
+## createScreen(width, height)                         L22
+## clearScreen(screen)                                 L42
+## writePpmFile(screen, fileName, #<1>#comment)        L53
+## saveExtension(screen, fname)                        L85
+## display(screen)                                     L101
+
 
 # createScreen(width, height)
 # Creates a 2D array representing pixels to later write as a ppm file.
@@ -10,7 +20,6 @@ import screen
 ## width: int; width of screen.
 ## height: int; height of screen.
 def createScreen(width, height):
-    
     screen = []
     
     for i in range(0, width):
@@ -19,21 +28,11 @@ def createScreen(width, height):
             screen[i].append([0,0,0])
             
     return screen
-# All functions conform to drawing and accessing where:
-# x increases from left to right,
-# y increases from top to bottom.
-#   0  1  2  3  4  5  6  7  8  9     #Rows: 1st element of 2D array.
-# 0[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-# 1[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-# 2[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-# 3[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-# 4[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-# 5[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-# 6[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-# 7[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-# 8[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-# 9[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
-# This example matrix would be representative of each pixel of the image to be written.
+# All functions conform to drawing and accessing where the origin is in the to right:
+# x increases from to the right,
+# y increases from to the bottom,
+# z increases from to the front.
+# Positions relative to the screen.
 
 
 # clearScreen(screen)
@@ -41,7 +40,6 @@ def createScreen(width, height):
 ## arguments:
 ## screen: list of lists; the screen to be cleared.
 def clearScreen(screen):
-    
     for i in range(0, len(screen) ):
         for j in range(0, len(screen[i]) ):
             screen[i][j] = [0,0,0]
@@ -54,7 +52,7 @@ def clearScreen(screen):
 ## fileName: string; fileName of the screen.
 def writePpmFile(screen, fileName):
     file = open('{}'.format(fileName), 'w')
-    # creates new file with fileName and open it to edit/
+    # creates new file with fileName and open it to edit.
     
     file.write('P3\n')
     # This line specifies the file format for the ppm image file.
@@ -67,28 +65,45 @@ def writePpmFile(screen, fileName):
     # This line specifies the width, height, and color depth of the ppm image file.
     
     #<1># If ever you wish to include a comment with the file:
-    #<1># file.write('#{}\n'.format(comment))
+    # file.write('#{}\n'.format(comment))
 
-    # width is nested in height because ppm writes an image a row at a time.
-    # Column index is incremented within to achieve this.
     for i in range(0, height):
         for j in range(0, width):
+            # width is nested in height because ppm are listed row by row.
+            # Rows correspond to screen height.
             file.write('{} {} {}  '.format( screen[j][i][0], screen[j][i][1], screen[j][i][2] ) )
             # 2 spaces after a pixel to make each pixel stand out when viewed as text.
             
     file.close()
-    # Close file for safety.
 
-def saveExtension( screens, fname ):
-    ppm_name = fname[:fname.find('.')] + '.ppm'
-    writePpmFile( screens, ppm_name )
-    p = Popen( ['convert', ppm_name, fname ], stdin=PIPE, stdout = PIPE )
-    p.communicate()
-    remove(ppm_name)
 
-def display( screens ):
-    ppm_name = 'pic.ppm'
-    writePpmFile( screens, ppm_name )
-    p = Popen( ['display', ppm_name], stdin=PIPE, stdout = PIPE )
+# saveExtension(screen, fileName)
+# Saves screen as file with filename fileName.
+## arguments:
+## screen: list of lists; the screen to be written.
+## fileName: string; includes the desired extension.
+def saveExtension(screen, fileName):
+    ppmName = fileName[:fileName.find('.')] + '.ppm'
+    writePpmFile(screen, ppmName)
+    # Create a ppm file from screen
+    p = Popen(['convert', ppmName, fileName ], stdin=PIPE, stdout = PIPE)
     p.communicate()
-    remove(ppm_name)
+    # Convert the ppm file to fileName which includes the desired extenstion.
+    remove(ppmName)
+    # Remove the ppm file.
+    # Don't think it's necessary, but I might be ignorant.
+
+
+# display(screen)
+# Saves screen as an image file, displays file, removes file
+## arguments:
+## screen: list of lists; the screen to be displayed.
+def display(screen):
+    ppmName = 'pic.ppm'
+    writePpmFile(screen, ppmName)
+    # Create a ppm file from screen
+    p = Popen(['display', ppmName], stdin=PIPE, stdout = PIPE)
+    p.communicate()
+    # Display the file.
+    remove(ppmName)
+    # Remove the file.
