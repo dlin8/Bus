@@ -11,7 +11,7 @@ import math
 ## scalarMultiplication(scalar, matrix)
 ## matrixMultiplication(matrix1, matrix2)
 ## dotProduct()
-#! crossProduct()
+## crossProduct()
 ## identityMatrixOf
 ## 
 
@@ -39,7 +39,7 @@ def scalarMultiplication(scalar, matrix):
 
 # matrix2 = matrix1 * matrix2
 # usually transformMatrix, edgeMatrix
-# most recent transformMatix, masterMatrix
+# most recent transformMatrix, masterMatrix
 def matrixMultiplication(matrix1, matrix2):
     for i in range(0, len( matrix2[0] ) ):
         tmp = []
@@ -49,6 +49,7 @@ def matrixMultiplication(matrix1, matrix2):
             matrix2[k][i] = dotProduct(matrix1[k][:], tmp)
         tmp = []
 
+        
 # Helper function for matrix multiplication         
 def dotProduct(list1, list2):
     dotProduct = 0
@@ -58,6 +59,7 @@ def dotProduct(list1, list2):
     for i in range(0, len(list1)):
         dotProduct = dotProduct + (list1[i] * list2[i])
     return dotProduct
+
 
 # Returns identity matrix of a given matrix
 def getIdentityMatrix(matrix):
@@ -72,6 +74,7 @@ def getIdentityMatrix(matrix):
                 retMatrix[r].append(0)
     return retMatrix
 
+
 # For parser
 def setIdentityMatrix(matrix):
     for i in range( len(matrix) ):
@@ -81,6 +84,7 @@ def setIdentityMatrix(matrix):
             else:
                 matrix[i][j] = 0
 
+                
 # Adds a point to edgeMatrix
 def addPoint(edgeMatrix, a):
     edgeMatrix[0].append(a[0])
@@ -88,16 +92,19 @@ def addPoint(edgeMatrix, a):
     edgeMatrix[2].append(a[2])
     edgeMatrix[3].append(1)
 
+    
 # Adds an edge to edgeMatrix using addPoint
 def addEdge(edgeMatrix, a, b):
     addPoint(edgeMatrix, a)
     addPoint(edgeMatrix, b)
 
+    
 def addPolygon(edgeMatrix, a, b, c):
     addPoint(edgeMatrix, a)
     addPoint(edgeMatrix, b)
     addPoint(edgeMatrix, c)
 
+    
 # Draws all the edges of edgeMatrix to screen with color
 # Typecasts all floats to rounded ints for drawLine function
 # They remain floats in the edgeMatrix
@@ -110,6 +117,7 @@ def drawEdges(screen, edges, color):
                           int( round( edges[1][i+1] ) ) ],
                           color )
 
+        
 def drawPolygons(screen, edges, color):
     for i in range(0, len( edges[0] )  - 1, 3):
         draw.drawLine(screen,
@@ -127,6 +135,7 @@ def drawPolygons(screen, edges, color):
                       [int( round( edges[0][i]   )), int( round( edges[1][i]   ))],
                       color
                       )
+
         
 # a, b, and c being the amount that each coordinate is translated by.
 def createTranslateMatrix(a, b, c):
@@ -142,7 +151,8 @@ def createTranslateMatrix(a, b, c):
     translateMatrix[1][3] = b
     translateMatrix[2][3] = c
     return translateMatrix
-    
+
+
 # a, b, and c being the amount that each coordinate is scaled by.
 # Scales with respect to origin
 def createScaleMatrix(a, b, c):
@@ -158,6 +168,7 @@ def createScaleMatrix(a, b, c):
     scaleMatrix[1][1] = b
     scaleMatrix[2][2] = c
     return scaleMatrix
+
 
 def createRotateMatrix(axis, theta):
     theta = math.radians(theta)
@@ -195,6 +206,7 @@ def createRotateMatrix(axis, theta):
 
     return rotateMatrix
 
+
 def makeHermite():
     hermiteMatrix = getIdentityMatrix( screen.createScreen(4,4) )
     hermiteMatrix[0][0] = 2.0
@@ -219,6 +231,7 @@ def makeHermite():
     
     return hermiteMatrix
 
+
 def makeBezier():
     bezierMatrix = getIdentityMatrix( screen.createScreen(4,4) )
     bezierMatrix[0][0] = -1.0
@@ -242,6 +255,7 @@ def makeBezier():
     bezierMatrix[3][3] = 0.0
 
     return bezierMatrix
+
 
 def generateCoef(p1, p2, p3, p4, t):
     coefMatrix = [ [p1], [p2], [p3], [p4], ]

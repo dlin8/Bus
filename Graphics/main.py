@@ -5,7 +5,7 @@
 # relative
 # splines
 # Clean
-# [ ] screen.py
+# [X] screen.py
 # [ ] draw.py
 # [ ] matrix.py
 # [ ] parser.py
@@ -27,34 +27,16 @@ def main():
 
     draw.box(edgeMatrix, 250, 250, 0, 100, 100, 100)
     
-    matrix.matrixMultiplication(matrix.createRotateMatrix('z', -30), edgeMatrix)
+    matrix.matrixMultiplication(matrix.createRotateMatrix('z', 30), edgeMatrix)
     draw.box(edgeMatrix, 250, 250, 0, 100, 100, 100)
-    matrix.matrixMultiplication(matrix.createRotateMatrix('x', -45), edgeMatrix)
+    #matrix.matrixMultiplication(matrix.createRotateMatrix('x', -45), edgeMatrix)
     matrix.matrixMultiplication(matrix.createRotateMatrix('y', -45), edgeMatrix)
     
     
     matrix.drawPolygons(screenOne, edgeMatrix, green)
-    screen.saveExtension(screenOne, 'pic.png')
+    #screen.saveExtension(screenOne, 'pic.png')
     screen.display(screenOne)
+    # For windows w/o imagemagick properly installed
     # screen.writePpmFile(screenOne, 'pic.ppm')
 
 main()
-
-
-def foo(val1, val2, val3, calcSum=True):
-    # Calculate the sum
-    if calcSum:
-        return val1 + val2 + val3
-    # Calculate the average instead
-    else:
-        return (val1 + val2 + val3) / 3
-
-print( foo(1, 2, 3) )
-    
-# def theyDontChange(x):
-#     x = x + 2
-# def theyDontChange(x):
-#     x[0] = 999
-# x = [1, 2, 3]
-# theyDontChange(x)
-# print(x)

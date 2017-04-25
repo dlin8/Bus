@@ -32,6 +32,7 @@ def plot(screen, x, y, color):
         # return False
     screen[x][y] = color
     
+    
 # drawLine(screen, a, b, color)
 # Draws a line on a screen
 ## paramaters:
@@ -51,7 +52,7 @@ def drawLine(screen, a, b, color):
     # #/##|##\#
     # /6##|##7\
 
-    # Reminder that the origin is in the top left, and y increments top to bottom.
+    # Reminder that the origin is in the top left, and y increments top to bottom
     # Any work with y-values should have this in mind.
     
     # Swap points a and b if a is to the right of b.
@@ -248,6 +249,7 @@ def circle(edgeMatrix, x, y, z, r, step):
                        
                        )
         t = t + step
+        
 
 def curve(edgeMatrix, x0, y0, x1, y1, x2, y2, x3, y3, step, curveType):
     if step == 0:
@@ -266,6 +268,7 @@ def curve(edgeMatrix, x0, y0, x1, y1, x2, y2, x3, y3, step, curveType):
         
         matrix.addEdge( edgeMatrix, [oldX, oldY, 0], [newX, newY, 0] )
 
+        
 def box(edgeMatrix, x, y, z, w, h, d):
     #front
     matrix.addPolygon( edgeMatrix, [x, y, z], [x, y+h, z], [x+w, y, z] )
@@ -285,7 +288,8 @@ def box(edgeMatrix, x, y, z, w, h, d):
     #back
     matrix.addPolygon( edgeMatrix, [x+w, y, z-d], [x+w, y+h, z-d], [x, y, z-d] )
     matrix.addPolygon( edgeMatrix, [x+w, y+h, z-d], [x, y+h, z-d], [x, y, z-d] )
-        
+
+    
 def sphere(edgeMatrix, cx, cy, cz, r, step):
     if step == 0:
         step = .025
@@ -308,6 +312,7 @@ def sphere(edgeMatrix, cx, cy, cz, r, step):
             theta = theta + (math.pi / 30)
         phi = phi + (step * 2 * math.pi)
 
+        
 def torus(edgeMatrix, cx, cy, cz, r, R, step):
     if step == 0:
         step = .025

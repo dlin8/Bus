@@ -8,10 +8,10 @@ import screen
 
 # FUNction list:
 ## createScreen(width, height)                         L22
-## clearScreen(screen)                                 L42
-## writePpmFile(screen, fileName, #<1>#comment)        L53
-## saveExtension(screen, fname)                        L85
-## display(screen)                                     L101
+## clearScreen(screen)                                 L41
+## writePpmFile(screen, fileName, #<1>#comment)        L52
+## saveExtension(screen, fname)                        L84
+## display(screen)                                     L100
 
 
 # createScreen(width, height)
@@ -29,10 +29,9 @@ def createScreen(width, height):
             
     return screen
 # All functions conform to drawing and accessing where the origin is in the to right:
-# x increases from to the right,
-# y increases from to the bottom,
-# z increases from to the front.
-# Positions relative to the screen.
+# x increases to the right,
+# y increases to the bottom,
+# z increases to the front.
 
 
 # clearScreen(screen)
@@ -49,7 +48,7 @@ def clearScreen(screen):
 # Writes the data from a screen to a ppm file.
 ## arguments:
 ## screen: list of lists; the screen to be written.
-## fileName: string; fileName of the screen.
+## fileName: string; fileName of the screen, should be .ppm.
 def writePpmFile(screen, fileName):
     file = open('{}'.format(fileName), 'w')
     # creates new file with fileName and open it to edit.
