@@ -1,6 +1,9 @@
 #!~/usr/bin/env python3
 
 # to do list:
+# triangle
+# relative
+# splines
 # Clean
 # [ ] screen.py
 # [ ] draw.py
