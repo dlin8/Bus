@@ -1,21 +1,9 @@
 #!/usr/bin/env python3
 
-
 import screen
 import draw
 import math
 
-
-# FUNction list:
-## printMatrix(matrix)
-## scalarMultiplication(scalar, matrix)
-## matrixMultiplication(matrix1, matrix2)
-## dotProduct()
-## crossProduct()
-## identityMatrixOf
-## 
-
-# Prints a matrix somewhat nicely
 def printMatrix(matrix):
     printString = ''
     rows = len(matrix)
@@ -26,13 +14,11 @@ def printMatrix(matrix):
         printString = printString + '\n'
     print(printString)
 
-# Performs scalar multiplication on a matrix
 def scalarMultiplication(scalar, matrix):
     for row in range(0, len(matrix) ):
         for column in range(0, len(matrix[0])):
             matrix[row][column] = scalar * matrix[row][column]
 
-    
 ## Test if this works with matrices of other dimensions
 # This function is specific to 4xN edge matrix multiplied BY a 4x4 matrix
 # Multiplier, Multiplicand
@@ -48,9 +34,7 @@ def matrixMultiplication(matrix1, matrix2):
         for k in range(0,4):
             matrix2[k][i] = dotProduct(matrix1[k][:], tmp)
         tmp = []
-
-        
-# Helper function for matrix multiplication         
+           
 def dotProduct(list1, list2):
     dotProduct = 0
     if len(list1) != len(list2):
@@ -60,8 +44,9 @@ def dotProduct(list1, list2):
         dotProduct = dotProduct + (list1[i] * list2[i])
     return dotProduct
 
+def crossProduct():
+    pass
 
-# Returns identity matrix of a given matrix
 def getIdentityMatrix(matrix):
     length = max(len(matrix), len(matrix[0]))
     retMatrix = []
@@ -74,8 +59,7 @@ def getIdentityMatrix(matrix):
                 retMatrix[r].append(0)
     return retMatrix
 
-
-# For parser
+# replace this
 def setIdentityMatrix(matrix):
     for i in range( len(matrix) ):
         for j in range( len(matrix[i]) ):
@@ -84,27 +68,21 @@ def setIdentityMatrix(matrix):
             else:
                 matrix[i][j] = 0
 
-                
-# Adds a point to edgeMatrix
 def addPoint(edgeMatrix, a):
     edgeMatrix[0].append(a[0])
     edgeMatrix[1].append(a[1])
     edgeMatrix[2].append(a[2])
     edgeMatrix[3].append(1)
 
-    
-# Adds an edge to edgeMatrix using addPoint
 def addEdge(edgeMatrix, a, b):
     addPoint(edgeMatrix, a)
     addPoint(edgeMatrix, b)
-
     
 def addPolygon(edgeMatrix, a, b, c):
     addPoint(edgeMatrix, a)
     addPoint(edgeMatrix, b)
     addPoint(edgeMatrix, c)
 
-    
 # Draws all the edges of edgeMatrix to screen with color
 # Typecasts all floats to rounded ints for drawLine function
 # They remain floats in the edgeMatrix
@@ -136,8 +114,6 @@ def drawPolygons(screen, edges, color):
                       color
                       )
 
-        
-# a, b, and c being the amount that each coordinate is translated by.
 def createTranslateMatrix(a, b, c):
     translateMatrix = []
     for i in range(0,4):
@@ -152,9 +128,6 @@ def createTranslateMatrix(a, b, c):
     translateMatrix[2][3] = c
     return translateMatrix
 
-
-# a, b, and c being the amount that each coordinate is scaled by.
-# Scales with respect to origin
 def createScaleMatrix(a, b, c):
     scaleMatrix = []
     for i in range(0,4):
@@ -168,7 +141,6 @@ def createScaleMatrix(a, b, c):
     scaleMatrix[1][1] = b
     scaleMatrix[2][2] = c
     return scaleMatrix
-
 
 def createRotateMatrix(axis, theta):
     theta = math.radians(theta)
@@ -206,7 +178,6 @@ def createRotateMatrix(axis, theta):
 
     return rotateMatrix
 
-
 def makeHermite():
     hermiteMatrix = getIdentityMatrix( screen.createScreen(4,4) )
     hermiteMatrix[0][0] = 2.0
@@ -230,7 +201,6 @@ def makeHermite():
     hermiteMatrix[3][3] = 0.0
     
     return hermiteMatrix
-
 
 def makeBezier():
     bezierMatrix = getIdentityMatrix( screen.createScreen(4,4) )
@@ -256,7 +226,6 @@ def makeBezier():
 
     return bezierMatrix
 
-
 def generateCoef(p1, p2, p3, p4, t):
     coefMatrix = [ [p1], [p2], [p3], [p4], ]
     if( t == 'hermite' ):
@@ -266,4 +235,3 @@ def generateCoef(p1, p2, p3, p4, t):
     else:
         print('invalid curve type')
     return coefMatrix
-            

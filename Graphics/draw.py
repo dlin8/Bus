@@ -1,47 +1,21 @@
 #!~/usr/bin/env python3
 
-
 import screen
 import matrix
 import math
 
-
-# FUNction list:
-## plot(screen, x, y, color)
-## drawLine(screen, a, b, color)
-## circle
-## curve
-## box
-## sphere
-## torus
-
-# plot(screen, x, y, color)
-# Plots a point on a screen.
-## parameters:
-## screen: list of lists; screen to plot point onto.
-## x: int; x-coordinate of point.
-## y: int; y-coordinate of point.
-## color: list [R,G,B]; color of point.
 def plot(screen, x, y, color):
     width = len(screen)
     height = len(screen[0])
-    if(x >= width or x < 0 or y >= height or y < 0):
+    if(x >= width or x < 0 or
+       y >= height or y < 0):
         x = x%len(screen)
         y = y%len(screen)
         #print('Out of bounds!')
-        # return False
     screen[x][y] = color
-    
-    
-# drawLine(screen, a, b, color)
-# Draws a line on a screen
-## paramaters:
-## screen: list of lists; screen to plot point onto.
-## a: list [x-coordinate, y-coordinate]; coordinates of one endpoint of line.
-## b: list [x-coordinate, y-coordinate]; coordinates of other endpoint of line.
-## color: list [R,G,B]; color of line
+
 def drawLine(screen, a, b, color):
-    # Picture of Octants:
+    # Octants:
     # \3##|##2/
     # #\##|##/#
     # ##\#|#/##
@@ -56,10 +30,8 @@ def drawLine(screen, a, b, color):
     # Any work with y-values should have this in mind.
     
     # Swap points a and b if a is to the right of b.
-    # Only have to deal with octants 1, 2, 7, and 8 as a result where we start from the left and draw to the right.
+    # Only have to deal with octants 1, 2, 8, and 7 as a result.
     if(b[0] < a[0]):
-        # Swapping values without a third variable.
-        # Possibility for overflow errors.
         b[0] = b[0] + a[0]
         a[0] = b[0] - a[0]
         b[0] = b[0] - a[0]
@@ -70,7 +42,6 @@ def drawLine(screen, a, b, color):
 
     x = a[0]
     y = a[1]
-    # Initialize x and y coordinates of current pixel to be drawn.
 
     # y = mx + b
     ## m = dy / dx
