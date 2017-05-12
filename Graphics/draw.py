@@ -9,11 +9,14 @@ def plot(screen, x, y, color):
     height = len(screen[0])
     if(x >= width or x < 0 or
        y >= height or y < 0):
-        x = x%len(screen)
-        y = y%len(screen)
-        #print('Out of bounds!')
+        print('Out of bounds! ({}, {}) not drawn.'.format(x, y))
+        return False
+        print('Out of bounds! Wrapping ({}, {}).'.format(x, y))
+        x = x%width
+        y = y%height
     screen[x][y] = color
 
+# Draw pixels from point a to b.
 def drawLine(screen, a, b, color):
     # Octants:
     # \3##|##2/
@@ -44,7 +47,7 @@ def drawLine(screen, a, b, color):
     y = a[1]
 
     # y = mx + b
-    ## m = dy / dx
+    # m = dy / dx
     # 0 = mx - y + b
     # multiply both sides by dx.
     # 0 = (dy * x) - (dx * y) + (dx * b)
@@ -54,14 +57,14 @@ def drawLine(screen, a, b, color):
     # C =  dx * b
     
     B = -1 * (b[0] - a[0])
-    # (B = -dx) point b is always to the right of a because we swapped if not.
+    # (B = -dx) point b is always to the right of a.
     # b[0] >= a[0]
     # B = -1 * (b[0] - a[0])
     
     # Algorithm follows this general structure:
     # One coordinate will always be incremented.
     # The other coordinate will either be or not be incremented.
-    # This depends on the midpoint of these two possible spaces for the new pixel.
+    # This depends on the midpoint of the two possible spaces for the next pixel.
     # The midpoint is substituted into the standard form of the equation representing the line.
     # Depending on whether this value is positive or negative,
     # We can determine that most of the line resides in one or the other space.
@@ -76,17 +79,11 @@ def drawLine(screen, a, b, color):
     # Multiply by 2 to avoid division.
     # Increment A and B twice as well to stay consistent with this scaled value of midpoint.
     
-    if a[1] >= b[1]:
-        # Octants 1, 2, horizontal line, or perfect diagonal SW - NE.
-        # [0, pi/2)
-        # If point a is LOWER than point b, see reminder text.
-        # Also track if a and b are of same height for trivial case. (Hoz. line)
-        
+    # Octants 1, 2 : [0, pi/2)
+    if b[1] <= a[1]: #if point b is higher than or of equal height to point a.
         A = a[1] - b[1]
         # A = dy
-        
-        if abs(A) >= abs(B):
-            # If y increases faster than x, or increase at the same rate:
+        if abs(A) >= abs(B): # If y increases faster than x, or increase at the same rate:
             # Line resides in octant 2 or between octants 1 and 2 for 45 deg line.
             # [pi/4, pi/2)
             

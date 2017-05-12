@@ -2,7 +2,11 @@
 
 from subprocess import Popen, PIPE
 from os import remove
-import screen
+
+# Origin is top left back.
+# x increases to the right,
+# y increases to the bottom,
+# z increases to the front.
 
 def createScreen(width, height):
     screen = []
@@ -11,14 +15,10 @@ def createScreen(width, height):
         for j in range(0, height):
             screen[i].append([0,0,0])
     return screen
-# Origin is top left back.
-# x increases to the right,
-# y increases to the bottom,
-# z increases to the front.
 
 def clearScreen(screen):
-    for i in range(0, len(screen) ):
-        for j in range(0, len(screen[i]) ):
+    for i in range(0, len(screen)):
+        for j in range(0, len(screen[i])):
             screen[i][j] = [0,0,0]
 
 def writePpmFile(screen, fileName):
@@ -26,11 +26,11 @@ def writePpmFile(screen, fileName):
     file.write('P3\n')    # https://en.wikipedia.org/wiki/Netpbm_format#File_format_description
     width = len(screen)
     height = len(screen[0])
-    file.write('{} {} 255\n'.format( width, height ) )
+    file.write('{} {} 255\n'.format(width, height))
     # file.write('#{}\n'.format(comment))
     for i in range(0, height):
         for j in range(0, width):        # width is nested in height because ppm are written by rows.
-            file.write('{} {} {}  '.format( screen[j][i][0], screen[j][i][1], screen[j][i][2] ) ) #RGB
+            file.write('{} {} {}  '.format(screen[j][i][0], screen[j][i][1], screen[j][i][2])) #RGB
     file.close()
 
 def saveExtension(screen, fileName):
