@@ -22,12 +22,13 @@ tempScreen = screen.createScreen(4,4)
 transformMatrix = matrix.getIdentityMatrix(tempScreen)[:]
 
 def main():
-    screenOne = screen.createScreen(500, 500)
-    draw.plot(screenOne, 249, 249, green)
-    draw.plot(screenOne, 500, 500, green)
-    #screen.saveExtension(screenOne, 'pic.png')
+    screenOne = screen.createScreen(8, 8)
+    draw.plot(screenOne, 4, 4, green)
     screen.display(screenOne)
+    
+    #screen.saveExtension(screenOne, 'pic.png')
+    
     # For windows w/o imagemagick properly installed
     # screen.writePpmFile(screenOne, 'pic.ppm')
-
+    
 main()

@@ -4,6 +4,14 @@ import screen
 import draw
 import math
 
+def newMatrix():
+    matrix = []
+    for i in range(0,4):
+        matrix.append([])
+        for j in range(0,4):
+            matrix[i].append([0])
+    return matrix
+
 def printMatrix(matrix):
     printString = ''
     rows = len(matrix)
