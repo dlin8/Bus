@@ -31,31 +31,23 @@ def drawLine(screen, a, b, color):
     # Swap points a and b if b is to the left of a.
     # Only have to deal with octants 1, 2, 8, and 7.
     if(b[0] < a[0]):
-        b[0] = b[0] + a[0]
-        a[0] = b[0] - a[0]
-        b[0] = b[0] - a[0]
-        
-        b[1] = b[1] + a[1]
-        a[1] = b[1] - a[1]
-        b[1] = b[1] - a[1]
-
+        c = a
+        a = b
+        b = c
     x = a[0]
     y = a[1]
-
     # y = mx + b
     # 0 = mx - y + b
     # m = dy / dx
     # multiply both sides by dx.
     # 0 = (dy * x) - (dx * y) + (dx * b)
-    
     # 0 = Ax + By + C
     # A =  dy
     # B = -dx
     # C =  dx * b
-    
+    A = a[1] - b[1]
     B = -1 * (b[0] - a[0])
     # (B = -dx) point b is always to the right of a.
-
     # Midpoint calculations:
     # f(X0 + i, Y0 + j) = A(X0+i) + B(Y0+j) + C
     # = AX0 + Ai + BY0 + Bj + C
@@ -65,7 +57,6 @@ def drawLine(screen, a, b, color):
     # Multiply by 2 to avoid division. Won't affect accuracy because we only check the sign.
     
     if b[1] <= a[1]:   # Octants 1, 2 : [0, pi/2)
-        A = a[1] - b[1]
         if abs(A) >= abs(B):
             # Octant 2
             # [pi/4, pi/2)
@@ -100,7 +91,6 @@ def drawLine(screen, a, b, color):
                 x = x + 1
                 d = d + (2*A)
     else:   # Octants 7, 8 : (0, -pi/2]
-        A = a[1] - b[1]
         if abs(A) >= abs(B):
             # Octant 7
             # [-pi/2, -pi/4]
@@ -133,7 +123,7 @@ def drawLine(screen, a, b, color):
                     d = d - (2*B)
                 x = x + 1
                 d = d + (2*A)
-
+############################################
 def circle(edgeMatrix, x, y, z, r, step):
     if step < (1 / (r * r)):
         step = (1 / (r * r))

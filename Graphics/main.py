@@ -9,7 +9,6 @@
 # [ ] parser.py
 # [ ] 
 
-
 import screen
 import draw
 import matrix
@@ -21,13 +20,15 @@ tempScreen = screen.createScreen(4,4)
 transformMatrix = matrix.getIdentityMatrix(tempScreen)[:]
 
 def main():
-    screenOne = screen.createScreen(6, 3)
-    draw.plot(screenOne, 0, 0, [255, 255, 255])
-    draw.plot(screenOne, 5, 2, green)
+    screenOne = screen.createScreen(500, 500)
+    # drawLine test.
+    # for i in range (0, 500, 100):
+    #     matrix.addEdge(edgeMatrix, [249, 249, 0], [499, i, 0])
+    #     matrix.addEdge(edgeMatrix, [249, 249, 0], [i, 0, 0])
+    #     matrix.addEdge(edgeMatrix, [249, 249, 0], [0, i + 100, 0])
+    #     matrix.addEdge(edgeMatrix, [249, 249, 0], [i + 100, 499, i])
+    # matrix.addEdge(edgeMatrix, [0, 0, 0], [499, 499, 0])
+    # matrix.addEdge(edgeMatrix, [0, 499, 0], [499, 0, 0])
     matrix.drawEdges(screenOne, edgeMatrix, green)
-    matrix.printMatrix(screenOne)
-    A = matrix.newMatrix(6,4)
-    A[3][5] = 'w0w0w0w00w0w'
-    matrix.printMatrix(A)
-    #screen.display(screenOne)
+    screen.display(screenOne)
 main()
