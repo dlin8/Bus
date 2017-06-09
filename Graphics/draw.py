@@ -11,29 +11,25 @@ def plot(screen, x, y, color):
        y >= height or y < 0):
         print('Out of bounds! ({}, {}) not drawn.'.format(x, y))
         return False
-        print('Out of bounds! Wrapping ({}, {}).'.format(x, y))
+        print('Out of bounds! Wrapping ({}, {}).'.format(x, y)) #Option to draw by modulo.
         x = x%width
         y = y%height
     screen[x][y] = color
 
-# Draw pixels from point a to b.
+# Bresenham's line algorithm.
 def drawLine(screen, a, b, color):
     # Octants:
-    # \3##|##2/
-    # #\##|##/#
-    # ##\#|#/##
-    # 4##\|/##1
-    # ---------
-    # 5##/|\##8
-    # ##/#|#\##
-    # #/##|##\#
-    # /6##|##7\
+    # \3|2/
+    # 4\|/1
+    # -----
+    # 5/|\8
+    # /6|7\
 
     # Reminder that the origin is in the top left, and y increments top to bottom
     # Any work with y-values should have this in mind.
     
-    # Swap points a and b if a is to the right of b.
-    # Only have to deal with octants 1, 2, 8, and 7 as a result.
+    # Swap points a and b if b is to the left of a.
+    # Only have to deal with octants 1, 2, 8, and 7.
     if(b[0] < a[0]):
         b[0] = b[0] + a[0]
         a[0] = b[0] - a[0]
@@ -47,10 +43,11 @@ def drawLine(screen, a, b, color):
     y = a[1]
 
     # y = mx + b
-    # m = dy / dx
     # 0 = mx - y + b
+    # m = dy / dx
     # multiply both sides by dx.
     # 0 = (dy * x) - (dx * y) + (dx * b)
+    
     # 0 = Ax + By + C
     # A =  dy
     # B = -dx
@@ -58,58 +55,27 @@ def drawLine(screen, a, b, color):
     
     B = -1 * (b[0] - a[0])
     # (B = -dx) point b is always to the right of a.
-    # b[0] >= a[0]
-    # B = -1 * (b[0] - a[0])
-    
-    # Algorithm follows this general structure:
-    # One coordinate will always be incremented.
-    # The other coordinate will either be or not be incremented.
-    # This depends on the midpoint of the two possible spaces for the next pixel.
-    # The midpoint is substituted into the standard form of the equation representing the line.
-    # Depending on whether this value is positive or negative,
-    # We can determine that most of the line resides in one or the other space.
-    # And we can then decide to increment or not increment to have the next pixel be in that space.
 
     # Midpoint calculations:
     # f(X0 + i, Y0 + j) = A(X0+i) + B(Y0+j) + C
     # = AX0 + Ai + BY0 + Bj + C
-    #                               AX0 + BY0 + C = 0
+    #   AX0 + BY0 + C = 0
     # = Ai + Bj
     # i is 0.5 or 1, j is 1 or 0.5, representative of midpoint coordinates.
-    # Multiply by 2 to avoid division.
-    # Increment A and B twice as well to stay consistent with this scaled value of midpoint.
+    # Multiply by 2 to avoid division. Won't affect accuracy because we only check the sign.
     
-    # Octants 1, 2 : [0, pi/2)
-    if b[1] <= a[1]: #if point b is higher than or of equal height to point a.
+    if b[1] <= a[1]:   # Octants 1, 2 : [0, pi/2)
         A = a[1] - b[1]
-        # A = dy
-        if abs(A) >= abs(B): # If y increases faster than x, or increase at the same rate:
-            # Line resides in octant 2 or between octants 1 and 2 for 45 deg line.
+        if abs(A) >= abs(B):
+            # Octant 2
             # [pi/4, pi/2)
-            
-            # ##2/
-            # ##/
-            # #/
-            # /
-            # picture of an octant 2 line.
-
             # [?][?]
             # [X][_]
-            # how next pixel is decided.
-
-            # f(X+0.5, Y+0.1)
+            # X=current pixel, ?=candidates.
+            # f(X+0.5, Y+1)
             # f(X+1, Y+2)
             # A + 2B
-            
             d = A + (2 * B)
-            # B is negative!
-            # Initial value of midpoint.
-            # A positive value indicates that A > 2B.
-            # Therefore, the x-coordinate of the midpoint, the conditional coordinate is too high.
-            # Therefore, if d is > 0, do not increment x.
-            # Otherwise, if d is < 0, do increment x.
-            # if d = 0 dont increment, stays consistent with other 3 quadrants.
-            
             while(y >= b[1]):
                 plot(screen, x, y, color)
                 if(d < 0):
@@ -118,87 +84,57 @@ def drawLine(screen, a, b, color):
                 y = y - 1
                 d = d + (2*B)
         else:
-            # Otherwise, the line resides in octant 1.
+            # Octant 1
             # [0, pi/4)
-
-            # ####/
-            # #___#
-            # /###1
-            # picture of octant 1 line
-
             # [_][?]
             # [X][?]
-            # how next pixel is decided.
-
             # f(X+1, Y+0.5)
             # f(X+2, Y+1)
             # 2A + B
-
-            # Here the conditional coordinate is Y. Reminder text.
-            # B is the only negative term.
-            # d > 0 means that Y is too low.
             d = (2 * A) + B
             while(x <= b[0]):
                 plot(screen, x, y, color)
                 if(d > 0):
-                    y = y - 1 #REMINDER TEXT
+                    y = y - 1
                     d = d + (2*B)
                 x = x + 1
                 d = d + (2*A)
-    else:
-        # Otherwise the point a is HIGHER than b.
-        # Octant VII, VIII, edge cases.
-        # (0, -pi/2]
-        
+    else:   # Octants 7, 8 : (0, -pi/2]
         A = a[1] - b[1]
-        #
         if abs(A) >= abs(B):
-            # Y changes faster or equal to X, Octant 7 or perfect diagonal NW-SE.
-            # [-pi/4, -pi/2]
-
+            # Octant 7
+            # [-pi/2, -pi/4]
             # [X][_]
             # [?][?]
-
             # f(X+0.5, Y-1)
             # f(X+1, Y-2)
             # d = A - 2B
-
             d = A - (2 * B)
             while(y <= b[1]):
                 plot(screen, x, y, color)
                 if(d > 0):
-                    # X is not high enough
                     x = x + 1
                     d = d + (2*A) 
                 y = y + 1
-                    # Reminder text.
                 d = d - (2*B)
-                # Decrement because y is DECREASING, b term must decrease as well.
-                # Confusing because b is actually negative, so d is actually increasing.
-            
         else:
-            # Octant 8.
-            # (0, -pi/4)
-
+            # Octant 8
+            # (-pi/4, 0)
             # [X][?]
             # [_][?]
-
             # f(X+1, Y-0.5)
             # f(X+2, Y-1)
             # d = 2A - B
-            
             d = (2 * A) - B
             while(x <= b[0]):
                 plot(screen, x, y, color)
                 if(d < 0):
-                    # Y is too high.
                     y = y + 1
                     d = d - (2*B)
                 x = x + 1
                 d = d + (2*A)
 
 def circle(edgeMatrix, x, y, z, r, step):
-    # it doesn't get any finer, waste time otherwise.
     if step < (1 / (r * r)):
         step = (1 / (r * r))
     t = 0
@@ -302,8 +238,3 @@ def torus(edgeMatrix, cx, cy, cz, r, R, step):
                             [circle[0][0]+cx, circle[1][0]+cy, circle[2][0]+cz] )
             theta = theta + (2 * math.pi / 30)
         phi = phi + (step * 2 * math.pi)
-    
-
-
-    
-    

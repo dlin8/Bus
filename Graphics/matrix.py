@@ -4,22 +4,38 @@ import screen
 import draw
 import math
 
-def newMatrix():
+# foo[a][b]
+# a = x, b = y
+
+def newMatrix(rows, columns):
     matrix = []
-    for i in range(0,4):
+    for i in range(0, columns):
         matrix.append([])
-        for j in range(0,4):
+        for j in range(0, rows):
             matrix[i].append([0])
     return matrix
 
 def printMatrix(matrix):
     printString = ''
-    rows = len(matrix)
-    columns = len(matrix[0])
-    for i in range (0, len(matrix) ):
-        for j in range (0, len(matrix[0]) ):
-            printString = printString + str(matrix[i][j]) + ' '
-        printString = printString + '\n'
+    columns = len(matrix)
+    rows = len(matrix[0])
+    tokenList = []
+    maxLength = -1
+    for i in range (0, rows):
+        for j in range (0, columns):
+            token = str(matrix[j][i])
+            if len(token) > maxLength:
+                maxLength = len(token)
+            tokenList.append(token)
+    c = 0
+    for token in tokenList:
+        while len(token) < maxLength:
+            token = token + ' '
+        printString = printString + token + ' '
+        c = c + 1
+        if c == columns: 
+            printString = printString + '\n'
+            c = 0
     print(printString)
 
 def scalarMultiplication(scalar, matrix):
